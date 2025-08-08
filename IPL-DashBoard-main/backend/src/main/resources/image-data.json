@@ -1,0 +1,123 @@
+
+[
+  {
+    "id": 1,
+    "name": "Mumbai Indians",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Mumbai-Indians-Logo.png"
+  },
+  {
+    "id": 2,
+    "name": "Chennai Super Kings",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Chennai-Super-Kings-Logo.png"
+  },
+  {
+    "id": 3,
+    "name": "Kolkata Knight Riders",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Kolkata-Knight-Riders-Logo.png"
+  },
+  {
+    "id": 4,
+    "name": "Royal Challengers Bangalore",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Royal-Challengers-Bangalore-Logo.png"
+  },
+  {
+    "id": 5,
+    "name": "Sunrisers Hyderabad",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Sunrisers-Hyderabad-Logo.png"
+  },
+  {
+    "id": 6,
+    "name": "Delhi Capitals",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Delhi-Capitals-Logo.png"
+  },
+  {
+    "id": 7,
+    "name": "Punjab Kings",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Punjab-Kings-Logo.png"
+  },
+  {
+    "id": 8,
+    "name": "Rajasthan Royals",
+    "type": "team",
+    "imageUrl": "https://logos-world.net/wp-content/uploads/2020/06/Rajasthan-Royals-Logo.png"
+  },
+  {
+    "id": 9,
+    "name": "Deccan Chargers",
+    "type": "team",
+    "imageUrl": "https://placehold.co/100x100/FF6B35/FFFFFF?text=DC"
+  },
+  {
+    "id": 10,
+    "name": "Gujarat Lions",
+    "type": "team",
+    "imageUrl": "https://placehold.co/100x100/FFD700/000000?text=GL"
+  },
+  {
+    "id": 11,
+    "name": "Rising Pune Supergiants",
+    "type": "team",
+    "imageUrl": "https://placehold.co/100x100/9C27B0/FFFFFF?text=RPS"
+  },
+  {
+    "id": 12,
+    "name": "Kochi Tuskers Kerala",
+    "type": "team",
+    "imageUrl": "https://placehold.co/100x100/4CAF50/FFFFFF?text=KTK"
+  },
+  {
+    "id": 13,
+    "name": "Gujarat Titans",
+    "type": "team",
+    "imageUrl": "https://logowik.com/content/uploads/images/gujarat-titans5352.jpg"
+  },
+  {
+    "id": 14,
+    "name": "Lucknow Super Giants",
+    "type": "team",
+    "imageUrl": "https://logowik.com/content/uploads/images/lucknow-super-giants6357.jpg"
+  },
+  {
+    "id": 15,
+    "name": "MS Dhoni",
+    "type": "player",
+    "imageUrl": "https://placehold.co/100x100/4CAF50/FFFFFF?text=MSD"
+  },
+  {
+    "id": 16,
+    "name": "V Kohli",
+    "type": "player",
+    "imageUrl": "https://placehold.co/100x100/8BC34A/FFFFFF?text=VK"
+  },
+  {
+    "id": 17,
+    "name": "RG Sharma",
+    "type": "player",
+    "imageUrl": "https://placehold.co/100x100/CDDC39/000000?text=RS"
+  },
+  {
+    "id": 18,
+    "name": "AB de Villiers",
+    "type": "player",
+    "imageUrl": "https://placehold.co/100x100/FF9800/FFFFFF?text=ABD"
+  },
+  {
+    "id": 19,
+    "name": "SR Watson",
+    "type": "player",
+    "imageUrl": "https://placehold.co/100x100/E91E63/FFFFFF?text=SW"
+  },
+  {
+    "id": 20,
+    "name": "CH Gayle",
+    "type": "player",
+    "imageUrl": "https://placehold.co/100x100/607D8B/FFFFFF?text=CG"
+  }
+]

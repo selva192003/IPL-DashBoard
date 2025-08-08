@@ -1,31 +1,39 @@
 import { React, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'; // NEW: Import Recharts components
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
-export const TeamPage = () => {
-
+const TeamPage = () => {
     const [team, setTeam] = useState({ matches: [] });
     const { teamName } = useParams();
     const [selectedSeason, setSelectedSeason] = useState('');
+    const [teamLogo, setTeamLogo] = useState(''); // NEW state for team logo
 
+    // Fetch team details and logo on component mount or teamName/season change
     useEffect(
         () => {
-            const fetchTeam = async () => {
+            const fetchTeamAndLogo = async () => {
                 try {
                     const apiUrl = selectedSeason
                         ? `${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}?season=${selectedSeason}`
                         : `${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}`;
 
-                    const response = await fetch(apiUrl);
-                    const data = await response.json();
-                    setTeam(data);
+                    const teamResponse = await fetch(apiUrl);
+                    const teamData = await teamResponse.json();
+                    setTeam(teamData);
+
+                    // NEW: Fetch team logo from the API
+                    const logoResponse = await fetch(`${process.env.REACT_APP_API_ROOT_URL.replace('/api/v1', '')}/api/images/team/${teamName}`);
+                    const logoData = await logoResponse.json();
+                    if (logoData) {
+                        setTeamLogo(logoData.imageUrl);
+                    }
                 } catch (error) {
                     console.error("Error fetching team data:", error);
                 }
             };
-            fetchTeam();
+            fetchTeamAndLogo();
         },
         [teamName, selectedSeason]
     );
@@ -34,7 +42,6 @@ export const TeamPage = () => {
         ? [...new Set(team.matches.map(match => match.season))].sort((a, b) => b.localeCompare(a))
         : [];
     const seasonOptions = allSeasons.length > 0 ? ['All Seasons', ...allSeasons] : [];
-
 
     if (!team || !team.teamName) {
         return <Loader />;
@@ -45,62 +52,63 @@ export const TeamPage = () => {
         ? (team.totalWins / team.totalMatches * 100).toFixed(2)
         : 0;
 
-    // NEW: Data for the Pie Chart
     const data = [
         { name: 'Wins', value: team.totalWins },
         { name: 'Losses', value: totalLosses },
     ];
 
-    // Colors for the pie chart slices
-    const COLORS = ['#4CAF50', '#F44336']; // Green for wins, Red for losses
-
+    const COLORS = ['#4CAF50', '#F44336'];
 
     return (
-        <div className="TeamPage p-4">
-            <h1 className="text-3xl font-bold mb-4">{team.teamName} Matches</h1>
-            <p className="text-xl">Total Matches: {team.totalMatches}</p>
-            <p className="text-xl">Total Wins: {team.totalWins}</p>
-            <p className="text-xl">Total Losses: {totalLosses}</p>
-            <p className="text-xl">Win %: {winLossRatio}%</p>
-
-            {/* NEW: Pie Chart Section */}
-            <div className="my-8 p-4 bg-white rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4 text-center">Win/Loss Distribution</h2>
-                {team.totalMatches > 0 ? (
-                    <ResponsiveContainer width="100%" height={300}>
-                        <PieChart>
-                            <Pie
-                                data={data}
-                                cx="50%"
-                                cy="50%"
-                                outerRadius={100}
-                                fill="#8884d8"
-                                dataKey="value"
-                                labelLine={false}
-                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                            >
-                                {
-                                    data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))
-                                }
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </PieChart>
-                    </ResponsiveContainer>
-                ) : (
-                    <p className="text-center text-gray-600">No matches played yet to display chart.</p>
-                )}
+        <div className="TeamPage p-4 text-white">
+            <header className="flex items-center justify-center space-x-4 mb-8">
+                {teamLogo && <img src={teamLogo} alt={`${team.teamName} logo`} className="w-24 h-24 rounded-full border-4 border-indigo-400" />}
+                <h1 className="text-5xl font-extrabold text-center text-indigo-400">{team.teamName}</h1>
+            </header>
+            
+            <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-4xl mx-auto mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div>
+                        <h2 className="text-2xl font-bold text-yellow-300 mb-4">Season Performance</h2>
+                        <p className="text-xl text-gray-300">Total Matches: <span className="font-semibold text-white">{team.totalMatches}</span></p>
+                        <p className="text-xl text-gray-300">Total Wins: <span className="font-semibold text-white">{team.totalWins}</span></p>
+                        <p className="text-xl text-gray-300">Total Losses: <span className="font-semibold text-white">{totalLosses}</span></p>
+                        <p className="text-xl text-gray-300">Win Rate: <span className="font-semibold text-yellow-300">{winLossRatio}%</span></p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold text-yellow-300 mb-4">Win/Loss Distribution</h2>
+                        {team.totalMatches > 0 ? (
+                            <ResponsiveContainer width="100%" height={250}>
+                                <PieChart>
+                                    <Pie
+                                        data={data}
+                                        cx="50%"
+                                        cy="50%"
+                                        outerRadius={90}
+                                        dataKey="value"
+                                        labelLine={false}
+                                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                    >
+                                        {data.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                    <Legend />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <p className="text-center text-gray-500 mt-8">No matches played yet to display chart.</p>
+                        )}
+                    </div>
+                </div>
             </div>
-            {/* END NEW: Pie Chart Section */}
 
-
-            <div className="my-4">
-                <label htmlFor="season-select" className="block text-lg font-medium text-gray-700">Select Season:</label>
+            <div className="my-8">
+                <label htmlFor="season-select" className="block text-xl font-bold text-yellow-300 mb-2">Filter by Season:</label>
                 <select
                     id="season-select"
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    className="bg-gray-700 text-white p-2 rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full max-w-xs mx-auto"
                     value={selectedSeason}
                     onChange={(e) => setSelectedSeason(e.target.value === 'All Seasons' ? '' : e.target.value)}
                 >
@@ -110,12 +118,16 @@ export const TeamPage = () => {
                 </select>
             </div>
 
-            <h2 className="text-2xl font-bold mt-8 mb-4">Matches:</h2>
-            {team.matches.length > 0 ? (
-                team.matches.map(match => <MatchCard key={match.id} match={match} teamName={team.teamName} />)
-            ) : (
-                <p>No matches found for this selection.</p>
-            )}
+            <h2 className="text-3xl font-bold text-center mb-6 text-indigo-400">Match History</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {team.matches.length > 0 ? (
+                    team.matches.map(match => <MatchCard key={match.id} match={match} teamName={team.teamName} />)
+                ) : (
+                    <p className="text-center text-gray-500">No matches found for this selection.</p>
+                )}
+            </div>
         </div>
     );
 };
+
+export default TeamPage;

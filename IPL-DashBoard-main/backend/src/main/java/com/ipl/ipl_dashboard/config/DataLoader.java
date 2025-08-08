@@ -12,6 +12,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStreamReader;
@@ -19,6 +20,7 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
+@Order(2) // Run this after ImageDataLoader
 public class DataLoader implements CommandLineRunner {
 
     private final MatchRepository matchRepo;

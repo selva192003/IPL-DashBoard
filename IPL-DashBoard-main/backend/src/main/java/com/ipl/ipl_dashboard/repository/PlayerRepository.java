@@ -1,8 +1,12 @@
-package com.ipl.ipl_dashboard.repository;
+    package com.ipl.ipl_dashboard.repository;
 
-import com.ipl.ipl_dashboard.model.Player;
-import org.springframework.data.jpa.repository.JpaRepository;
+    import com.ipl.ipl_dashboard.model.Player;
+    import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PlayerRepository extends JpaRepository<Player, String> {
-    // Spring Data JPA will automatically provide basic CRUD operations
-}
+    import java.util.List;
+
+    public interface PlayerRepository extends JpaRepository<Player, String> {
+        // Find all players and order them by totalPlayerOfMatchAwards in descending order
+        List<Player> findAllByOrderByTotalPlayerOfMatchAwardsDesc();
+    }
+    

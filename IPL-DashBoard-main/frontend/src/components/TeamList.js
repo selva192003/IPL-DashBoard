@@ -1,62 +1,48 @@
-// src/components/TeamList.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import TeamCard from "./TeamCard"; // Corrected: Ensure this import path is correct
+import TeamCard from "./TeamCard";
+import Loader from './Loader'; // Assuming you have a Loader component
 
 const TeamList = () => {
-  const [allTeams, setAllTeams] = useState([]);
-  const [filteredTeams, setFilteredTeams] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+    const [teams, setTeams] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    console.log('Frontend API URL being used:', `${process.env.REACT_APP_API_ROOT_URL}/team`);
-    axios.get(`${process.env.REACT_APP_API_ROOT_URL}/team`)
-      .then((response) => {
-        setAllTeams(response.data);
-        setFilteredTeams(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching teams:", error);
-      });
-  }, []);
+    useEffect(() => {
+        const fetchTeams = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const response = await axios.get(`${process.env.REACT_APP_API_ROOT_URL}/team`);
+                setTeams(response.data);
+            } catch (error) {
+                console.error("Error fetching teams:", error);
+                setError("Failed to load teams. Please check the backend connection.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTeams();
+    }, []);
 
-  useEffect(() => {
-    if (searchQuery.trim() === '') {
-      setFilteredTeams(allTeams);
-    } else {
-      const lowerCaseQuery = searchQuery.toLowerCase();
-      const results = allTeams.filter(team =>
-        team.teamName.toLowerCase().includes(lowerCaseQuery)
-      );
-      setFilteredTeams(results);
+    if (loading) {
+        return <Loader />;
     }
-  }, [searchQuery, allTeams]);
 
-  return (
-    <div className="p-4">
-      <h2 className="text-3xl font-bold mb-4 text-center">IPL Teams</h2>
+    if (error) {
+        return <div className="text-center text-red-500 p-4">{error}</div>;
+    }
 
-      <div className="mb-6 flex justify-center">
-        <input
-          type="text"
-          placeholder="Search teams by name..."
-          className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 w-full max-w-md"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredTeams.length > 0 ? (
-          filteredTeams.map((team) => (
-            <TeamCard key={team.teamName} team={team} />
-          ))
-        ) : (
-          <p className="text-center w-full col-span-full">No teams found matching your search.</p>
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <div className="TeamList p-4 text-white">
+            <h1 className="text-4xl font-bold text-center mb-8 text-indigo-400">IPL Teams</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {teams.map((team) => (
+                    <TeamCard key={team.teamName} team={team} />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default TeamList;
