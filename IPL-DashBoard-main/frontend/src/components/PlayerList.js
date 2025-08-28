@@ -15,7 +15,8 @@ const PlayerList = () => {
             try {
                 setLoading(true);
                 setError(null);
-                const response = await axios.get(`${process.env.REACT_APP_API_ROOT_URL}/players`);
+                // Use a relative URL to correctly route through the proxy
+                const response = await axios.get(`/api/v1/players`);
                 setAllPlayers(response.data);
                 setFilteredPlayers(response.data); // Initially display all players
             } catch (err) {

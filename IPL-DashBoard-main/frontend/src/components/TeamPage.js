@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'; // NEW: Import Recharts components
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 export const TeamPage = () => {
 
@@ -14,9 +14,10 @@ export const TeamPage = () => {
         () => {
             const fetchTeam = async () => {
                 try {
+                    // Use a relative URL to correctly route through the proxy
                     const apiUrl = selectedSeason
-                        ? `${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}?season=${selectedSeason}`
-                        : `${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}`;
+                        ? `/api/v1/team/${teamName}?season=${selectedSeason}`
+                        : `/api/v1/team/${teamName}`;
 
                     const response = await fetch(apiUrl);
                     const data = await response.json();
