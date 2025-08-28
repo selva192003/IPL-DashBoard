@@ -152,3 +152,8 @@ button:hover {
   background-color: #4f46e5; /* Darker indigo on hover */
   transform: translateY(-1px);
 }
+/* Ensures the navigation bar is on top of other content */
+.NavBar {
+  position: relative;
+  z-index: 1000;
+}

@@ -13,7 +13,7 @@ const MatchPage = () => {
             try {
                 setLoading(true);
                 setError(null);
-                // Fetch match details using the backend endpoint /match/{id}
+                // Fetch match details using the backend endpoint /api/v1/match/{id}
                 const response = await fetch(`${process.env.REACT_APP_API_ROOT_URL.replace('/api/v1', '')}/match/${id}`);
                 const data = await response.json();
                 setMatch(data);

@@ -1,62 +1,58 @@
-// src/components/TeamList.js
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import TeamCard from "./TeamCard"; // Corrected: Ensure this import path is correct
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Loader from './Loader';
 
 const TeamList = () => {
-  const [allTeams, setAllTeams] = useState([]);
-  const [filteredTeams, setFilteredTeams] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+    const [teams, setTeams] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    console.log('Frontend API URL being used:', `${process.env.REACT_APP_API_ROOT_URL}/team`);
-    axios.get(`${process.env.REACT_APP_API_ROOT_URL}/team`)
-      .then((response) => {
-        setAllTeams(response.data);
-        setFilteredTeams(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching teams:", error);
-      });
-  }, []);
+    useEffect(() => {
+        const fetchTeams = async () => {
+            try {
+                // Use the proxied URL for the backend API endpoint
+                const response = await axios.get('/api/v1/team');
+                setTeams(response.data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Failed to load teams:", err);
+                setError("Failed to load teams for selection. Please check your backend server and API URL.");
+                setLoading(false);
+            }
+        };
 
-  useEffect(() => {
-    if (searchQuery.trim() === '') {
-      setFilteredTeams(allTeams);
-    } else {
-      const lowerCaseQuery = searchQuery.toLowerCase();
-      const results = allTeams.filter(team =>
-        team.teamName.toLowerCase().includes(lowerCaseQuery)
-      );
-      setFilteredTeams(results);
+        fetchTeams();
+    }, []);
+
+    if (loading) {
+        return <Loader />;
     }
-  }, [searchQuery, allTeams]);
 
-  return (
-    <div className="p-4">
-      <h2 className="text-3xl font-bold mb-4 text-center">IPL Teams</h2>
+    if (error) {
+        return <div className="text-center text-red-500 p-4">{error}</div>;
+    }
 
-      <div className="mb-6 flex justify-center">
-        <input
-          type="text"
-          placeholder="Search teams by name..."
-          className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 w-full max-w-md"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
+    if (teams.length === 0) {
+        return <div className="text-center p-4">No teams available.</div>;
+    }
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredTeams.length > 0 ? (
-          filteredTeams.map((team) => (
-            <TeamCard key={team.teamName} team={team} />
-          ))
-        ) : (
-          <p className="text-center w-full col-span-full">No teams found matching your search.</p>
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <div className="TeamList p-4">
+            <h1 className="text-4xl font-bold text-center mb-6 text-indigo-400">IPL Teams</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {teams.map(team => (
+                    <div key={team.teamName} className="bg-gray-800 p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                        <Link to={`/teams/${team.teamName}`} className="text-white hover:text-indigo-300">
+                            <h2 className="text-2xl font-semibold mb-2">{team.teamName}</h2>
+                            <p className="text-sm text-gray-400">Total Matches: {team.totalMatches}</p>
+                            <p className="text-sm text-gray-400">Total Wins: {team.totalWins}</p>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default TeamList;

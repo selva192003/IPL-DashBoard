@@ -9,15 +9,16 @@ import PlayerPage from './components/PlayerPage';
 import HeadToHeadPage from './components/HeadToHeadPage';
 import SearchResultsPage from './components/SearchResultsPage';
 import HomePage from './components/HomePage';
+import LiveScorePage from './components/LiveScorePage';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
-    // Apply overall app styling classes
+    // The main container for the entire application, holding both the nav bar and the content
     <div className="App bg-gray-900 text-white min-h-screen">
       <Router>
-        {/* The HomePage itself will contain navigation links */}
-        {/* Other pages will be rendered within the main container */}
-        <div className="container mx-auto p-4 flex-grow"> {/* flex-grow to push footer down */}
+        <NavBar /> {/* The NavBar is now a top-level component */}
+        <div className="container mx-auto p-4 flex-grow"> {/* This container holds all the pages */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/teams/:teamName" element={<TeamPage />} />
@@ -27,6 +28,7 @@ function App() {
             <Route path="/players" element={<PlayerList />} />
             <Route path="/head-to-head" element={<HeadToHeadPage />} />
             <Route path="/search" element={<SearchResultsPage />} />
+            <Route path="/live-score" element={<LiveScorePage />} />
           </Routes>
         </div>
       </Router>
