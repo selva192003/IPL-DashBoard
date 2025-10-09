@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
@@ -8,46 +8,57 @@ export const TeamPage = () => {
     const [team, setTeam] = useState({ matches: [] });
     const { teamName } = useParams();
     const [selectedSeason, setSelectedSeason] = useState('');
-    const [venueStats, setVenueStats] = useState(null);
-    const [selectedVenue, setSelectedVenue] = useState('');
+    
+    // New: Hook to access URL search parameters
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const venueFilter = queryParams.get('venue');
+    const matchTypeFilter = queryParams.get('matchType');
+    
+    // Removed venueStats state variables
 
     useEffect(() => {
         const fetchTeamData = async () => {
             try {
-                // Fetch team matches data
-                const matchesApiUrl = selectedSeason
-                    ? `/api/v1/team/${teamName}?season=${selectedSeason}`
-                    : `/api/v1/team/${teamName}`;
+                // Construct query parameters including season filter (if selected) 
+                // and the venue/matchType filters passed from the TeamList page
+                const params = new URLSearchParams();
+                
+                if (selectedSeason && selectedSeason !== 'All Seasons') {
+                    params.append('season', selectedSeason);
+                }
+                // Pass through filters from TeamList URL if present
+                if (venueFilter) {
+                    params.append('venue', venueFilter);
+                }
+                if (matchTypeFilter) {
+                    params.append('matchType', matchTypeFilter);
+                }
+                
+                const query = params.toString();
+                const matchesApiUrl = `/api/v1/team/${teamName}${query ? '?' + query : ''}`;
                 
                 const matchesResponse = await fetch(matchesApiUrl);
                 const matchesData = await matchesResponse.json();
                 
                 setTeam(matchesData);
                 
-                // Fetch venue stats
-                const venueStatsApiUrl = `/api/v1/team/${teamName}/venue-stats`;
-                const venueStatsResponse = await fetch(venueStatsApiUrl);
-                const venueStatsData = await venueStatsResponse.json();
-                setVenueStats(venueStatsData.venueStats);
-                
-                if (Object.keys(venueStatsData.venueStats).length > 0) {
-                    setSelectedVenue(Object.keys(venueStatsData.venueStats)[0]);
-                }
-
+                // Removed venue stats fetching logic
             } catch (error) {
-                console.error("Error fetching initial team data:", error);
+                console.error("Error fetching team data:", error);
+                // Handle error state if needed
             }
         };
 
         fetchTeamData();
-    }, [teamName, selectedSeason]);
+    }, [teamName, selectedSeason, venueFilter, matchTypeFilter]); // Depend on filters and season
 
     const allSeasons = team.matches && team.matches.length > 0
         ? [...new Set(team.matches.map(match => match.season))].sort((a, b) => b.localeCompare(a))
         : [];
     const seasonOptions = allSeasons.length > 0 ? ['All Seasons', ...allSeasons] : [];
 
-    const currentVenueStats = venueStats ? venueStats[selectedVenue] : null;
+    // Removed logic related to currentVenueStats
     const totalLosses = team.totalMatches - team.totalWins;
     const winLossRatio = team.totalMatches > 0
         ? (team.totalWins / team.totalMatches * 100).toFixed(2)
@@ -63,14 +74,34 @@ export const TeamPage = () => {
     if (!team || !team.teamName) {
         return <Loader />;
     }
+    
+    // Conditional display of filters in a subheading for context
+    const filterContext = (venueFilter || matchTypeFilter) ? 
+        ` (Filtered by: ${venueFilter ? `Venue: ${venueFilter}` : ''}${venueFilter && matchTypeFilter ? ', ' : ''}${matchTypeFilter ? `Match Type: ${matchTypeFilter}` : ''})` 
+        : '';
 
     return (
         <div className="TeamPage p-4 text-gray-900">
-            <h1 className="text-3xl font-bold mb-4">{team.teamName} Matches</h1>
+            <h1 className="text-3xl font-bold mb-1">{team.teamName}</h1>
+            <p className="text-lg font-semibold mb-4 text-gray-600">{filterContext}</p> 
+
             <p className="text-xl">Total Matches: {team.totalMatches}</p>
             <p className="text-xl">Total Wins: {team.totalWins}</p>
             <p className="text-xl">Total Losses: {totalLosses}</p>
             <p className="text-xl">Win %: {winLossRatio}%</p>
+            
+            <div className="flex justify-center my-4">
+                <select 
+                    value={selectedSeason}
+                    onChange={(e) => setSelectedSeason(e.target.value)}
+                    className="p-2 border rounded-md text-gray-900"
+                >
+                    {seasonOptions.map(season => (
+                        <option key={season} value={season}>{season}</option>
+                    ))}
+                </select>
+            </div>
+
 
             <div className="my-8 p-4 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold mb-4 text-center">Win/Loss Distribution</h2>
@@ -98,44 +129,11 @@ export const TeamPage = () => {
                         </PieChart>
                     </ResponsiveContainer>
                 ) : (
-                    <p className="text-center text-gray-600">No matches played yet to display chart.</p>
+                    <p className="text-center text-gray-600">No matches played yet to display chart (under current filters).</p>
                 )}
             </div>
 
-            {venueStats && Object.keys(venueStats).length > 0 && (
-                <div className="my-8 p-4 bg-white rounded-lg shadow-md text-gray-900">
-                    <h2 className="text-2xl font-bold mb-4 text-center">Venue Performance</h2>
-                    <div className="mb-4">
-                        <label htmlFor="venue-select" className="block text-lg font-medium">Select Venue:</label>
-                        <select
-                            id="venue-select"
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                            value={selectedVenue}
-                            onChange={(e) => setSelectedVenue(e.target.value)}
-                        >
-                            {Object.keys(venueStats).map(venue => (
-                                <option key={venue} value={venue}>{venue}</option>
-                            ))}
-                        </select>
-                    </div>
-                    {currentVenueStats && (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-lg">
-                            <div className="bg-gray-100 p-4 rounded-lg shadow-inner">
-                                <h3 className="font-semibold">Matches at {selectedVenue}</h3>
-                                <p className="text-2xl font-bold">{currentVenueStats.totalMatches}</p>
-                            </div>
-                            <div className="bg-gray-100 p-4 rounded-lg shadow-inner">
-                                <h3 className="font-semibold">Wins at {selectedVenue}</h3>
-                                <p className="text-2xl font-bold text-green-600">{currentVenueStats.totalWins}</p>
-                            </div>
-                            <div className="bg-gray-100 p-4 rounded-lg shadow-inner">
-                                <h3 className="font-semibold">Win Percentage</h3>
-                                <p className="text-2xl font-bold text-blue-600">{currentVenueStats.winPercentage}%</p>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            )}
+            {/* Removed the 'Venue Performance' section */}
             
             <h2 className="text-2xl font-bold mt-8 mb-4">Matches:</h2>
             {team.matches.length > 0 ? (
