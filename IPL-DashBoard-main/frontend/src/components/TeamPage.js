@@ -33,14 +33,16 @@ export const TeamPage = () => {
         () => {
             const fetchTeam = async () => {
                 try {
-                    // Use a relative URL to correctly route through the proxy
-                    const apiUrl = selectedSeason
-                        ? `/api/v1/team/${teamName}?season=${selectedSeason}`
-                        : `/api/v1/team/${teamName}`;
+                    // Build API URL: allow REACT_APP_API_URL to override base (for deployed backend)
+                        const API_BASE = process.env.REACT_APP_API_URL || '';
+                        const apiPath = selectedSeason
+                            ? `/api/v1/team/${teamName}?season=${selectedSeason}`
+                            : `/api/v1/team/${teamName}`;
+                        const apiUrl = apiPath.startsWith('http') ? apiPath : `${API_BASE}${apiPath}`;
 
-                    const response = await fetch(apiUrl);
-                    const data = await response.json();
-                    setTeam(data);
+                        const response = await fetch(apiUrl);
+                        const data = await response.json();
+                        setTeam(data);
                 } catch (error) {
                     console.error("Error fetching team data:", error);
                 }

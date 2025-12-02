@@ -30,8 +30,9 @@ const TeamList = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // Use the proxied URL for the backend API endpoint
-                const response = await axios.get('/api/v1/team');
+                // Allow targeting an external API via REACT_APP_API_URL at build time
+                const API_BASE = process.env.REACT_APP_API_URL || '';
+                const response = await axios.get(`${API_BASE}/api/v1/team`);
                 setTeams(response.data);
                 setLoading(false);
             } catch (err) {
