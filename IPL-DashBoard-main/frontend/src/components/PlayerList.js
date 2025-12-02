@@ -3,6 +3,10 @@ import axios from 'axios';
 import Loader from './Loader';
 import { Link } from 'react-router-dom';
 
+// Define the base URL using the environment variable.
+// This is crucial for Vercel to connect to the Render backend in production.
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+
 const PlayerList = () => {
     const [allPlayers, setAllPlayers] = useState([]); // Store all fetched players
     const [filteredPlayers, setFilteredPlayers] = useState([]); // Players displayed after filtering
@@ -15,13 +19,15 @@ const PlayerList = () => {
             try {
                 setLoading(true);
                 setError(null);
-                // Use a relative URL to correctly route through the proxy
-                const response = await axios.get(`/api/v1/players`);
+                
+                // CORRECTED: Prepend BASE_URL to the API path
+                const response = await axios.get(`${BASE_URL}/api/v1/players`);
+                
                 setAllPlayers(response.data);
                 setFilteredPlayers(response.data); // Initially display all players
             } catch (err) {
                 console.error("Error fetching players:", err);
-                setError("Failed to load players. Please try again later.");
+                setError("Failed to load players. Please check your backend service URL.");
             } finally {
                 setLoading(false);
             }
@@ -30,7 +36,7 @@ const PlayerList = () => {
         fetchPlayers();
     }, []);
 
-    // New: Effect to filter players based on search query
+    // Effect to filter players based on search query
     useEffect(() => {
         if (searchQuery.trim() === '') {
             setFilteredPlayers(allPlayers); // If search is empty, show all players
@@ -59,7 +65,7 @@ const PlayerList = () => {
         <div className="PlayerList p-4">
             <h1 className="text-3xl font-bold mb-6 text-center">All IPL Players</h1>
 
-            {/* NEW: Local Search Bar for Players */}
+            {/* Local Search Bar for Players */}
             <div className="mb-6 flex justify-center">
                 <input
                     type="text"

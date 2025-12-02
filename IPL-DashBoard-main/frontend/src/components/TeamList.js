@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import teamMeta from '../data/teamMeta.json';
 
+// Define the base URL using the environment variable.
+// In a production build on Vercel, this will be the Render URL.
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+
 // helper: find meta by teamName case-insensitive, trimmed
 function normalizeKey(s){
     return s ? s.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
@@ -30,14 +34,13 @@ const TeamList = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // Allow targeting an external API via REACT_APP_API_URL at build time
-                const API_BASE = process.env.REACT_APP_API_URL || '';
-                const response = await axios.get(`${API_BASE}/api/v1/team`);
+                // CHANGED: Prepend BASE_URL to the API path
+                const response = await axios.get(`${BASE_URL}/api/v1/team`);
                 setTeams(response.data);
                 setLoading(false);
             } catch (err) {
                 console.error("Failed to load teams:", err);
-                setError("Failed to load teams for selection. Please check your backend server and API URL.");
+                setError("Failed to load teams for selection. Please check your backend service URL.");
                 setLoading(false);
             }
         };

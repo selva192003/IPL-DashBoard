@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
 
+// Define the base URL using the environment variable.
+// This is crucial for Vercel to connect to the Render backend in production.
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+
 const PlayerPage = () => {
     const [player, setPlayer] = useState(null);
     const [playerMatches, setPlayerMatches] = useState([]);
@@ -16,13 +20,13 @@ const PlayerPage = () => {
                 setLoading(true);
                 setError(null);
 
-                // Use relative URLs to correctly route through the proxy
-                const playerResponse = await fetch(`/api/v1/players/${playerName}`);
+                // CORRECTED: Use BASE_URL prefix for player details API call
+                const playerResponse = await fetch(`${BASE_URL}/api/v1/players/${playerName}`);
                 const playerData = await playerResponse.json();
                 setPlayer(playerData);
 
-                // Use relative URLs for the matches as well
-                const matchesResponse = await fetch(`/api/v1/players/${playerName}/player-of-match-awards`);
+                // CORRECTED: Use BASE_URL prefix for player matches API call
+                const matchesResponse = await fetch(`${BASE_URL}/api/v1/players/${playerName}/player-of-match-awards`);
                 const matchesData = await matchesResponse.json();
                 setPlayerMatches(matchesData);
 

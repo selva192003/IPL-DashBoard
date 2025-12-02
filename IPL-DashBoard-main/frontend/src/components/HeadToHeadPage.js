@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
 
+// Define the base URL using the environment variable.
+// In development, this will be an empty string, relying on the package.json proxy.
+// In production (Vercel), it will be set to the Render backend URL.
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+
 const HeadToHeadPage = () => {
     const [teams, setTeams] = useState([]);
     const [selectedTeam1, setSelectedTeam1] = useState('');
@@ -16,8 +21,8 @@ const HeadToHeadPage = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // Use the proxied URL for the backend API endpoint
-                const response = await axios.get('/api/v1/team');
+                // Use the BASE_URL prefix for the team list API call
+                const response = await axios.get(`${BASE_URL}/api/v1/team`);
                 setTeams(response.data);
                 if (response.data.length > 1) {
                     setSelectedTeam1(response.data[0].teamName);
@@ -26,7 +31,7 @@ const HeadToHeadPage = () => {
                 setTeamsLoading(false);
             } catch (err) {
                 console.error("Failed to load teams for selection:", err);
-                setError("Failed to load teams for selection. Please check your backend server and API URL.");
+                setError("Failed to load teams for selection. Please check your backend service URL.");
                 setTeamsLoading(false);
             }
         };
@@ -39,8 +44,8 @@ const HeadToHeadPage = () => {
         setLoading(true);
         setError(null);
         try {
-            // Use the proxied URL for the backend API endpoint
-            const response = await axios.get(`/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
+            // Use the BASE_URL prefix for the head-to-head API call
+            const response = await axios.get(`${BASE_URL}/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
             setHeadToHeadData(response.data);
             setLoading(false);
         } catch (err) {
