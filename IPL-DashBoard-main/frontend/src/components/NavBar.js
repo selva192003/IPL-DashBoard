@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     return (
-        <nav className="bg-gray-800 p-4 shadow-md flex justify-center items-center NavBar">
+        <nav className="bg-gray-800 p-4 shadow-md flex justify-center items-center NavBar"> {/* Add 'NavBar' class here */}
             <ul className="flex space-x-6">
                 <li>
                     <Link to="/" className="text-white hover:text-indigo-300 text-lg font-medium transition-colors duration-200">Home</Link>
@@ -17,9 +17,7 @@ const NavBar = () => {
                 <li>
                     <Link to="/head-to-head" className="text-white hover:text-indigo-300 text-lg font-medium transition-colors duration-200">Head-to-Head</Link>
                 </li>
-                <li>
-                    <Link to="/live-score" className="text-white hover:text-indigo-300 text-lg font-medium transition-colors duration-200">Live Score</Link>
-                </li>
+                
             </ul>
         </nav>
     );
