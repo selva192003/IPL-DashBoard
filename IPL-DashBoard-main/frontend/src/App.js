@@ -9,7 +9,6 @@ import PlayerPage from './components/PlayerPage';
 import HeadToHeadPage from './components/HeadToHeadPage';
 import SearchResultsPage from './components/SearchResultsPage';
 import HomePage from './components/HomePage';
-import LiveScorePage from './components/LiveScorePage';
 import NavBar from './components/NavBar';
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
             <Route path="/players" element={<PlayerList />} />
             <Route path="/head-to-head" element={<HeadToHeadPage />} />
             <Route path="/search" element={<SearchResultsPage />} />
-            <Route path="/live-score" element={<LiveScorePage />} />
+            
           </Routes>
         </div>
       </Router>

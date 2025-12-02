@@ -1,0 +1,22 @@
+# Render service definitions for quick one-click deploy via Render's GitHub integration.
+# Adjust region and instance sizes in the Render dashboard if needed.
+services:
+  - type: web
+    name: ipl-backend
+    repo: https://github.com/selva192003/IPL-DashBoard.git
+    branch: feature/team-branding
+    path: backend
+    env: java
+    buildCommand: ./mvnw -DskipTests package
+    startCommand: java -jar target/*.jar
+    autoDeploy: true
+
+  - type: static
+    name: ipl-frontend
+    repo: https://github.com/selva192003/IPL-DashBoard.git
+    branch: feature/team-branding
+    path: frontend
+    env: static
+    buildCommand: npm install && npm run build
+    publishPath: build
+    autoDeploy: true

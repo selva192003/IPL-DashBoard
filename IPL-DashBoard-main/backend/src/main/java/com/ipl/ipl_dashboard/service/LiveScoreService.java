@@ -2,8 +2,7 @@ package com.ipl.ipl_dashboard.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+// Autowiring removed - this service is disabled and no longer a Spring bean
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import reactor.util.retry.Retry;
 
-@Service
 public class LiveScoreService {
 
     private final WebClient webClient;
@@ -23,7 +21,6 @@ public class LiveScoreService {
     private static final String API_BASE_URL = "https://cricbuzz-cricket.p.rapidapi.com";
     private static final String LIVE_MATCHES_ENDPOINT = "/matches/v1/live";
 
-    @Autowired
     public LiveScoreService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
         this.webClient = webClientBuilder.baseUrl(API_BASE_URL).build();
         this.objectMapper = objectMapper;
