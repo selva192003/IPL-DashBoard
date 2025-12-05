@@ -5,10 +5,7 @@ import com.ipl.ipl_dashboard.model.Team;
 import com.ipl.ipl_dashboard.repository.PlayerRepository;
 import com.ipl.ipl_dashboard.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +15,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/search")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://*.vercel.app"}, allowedHeaders = "*")
+public class SearchController {
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/search")
