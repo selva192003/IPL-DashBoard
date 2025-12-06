@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/players") // Base path for player endpoints
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://*.vercel.app"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://ipl-dash-board-tau.vercel.app", "https://*.vercel.app"})
 public class PlayerController {
 
     private final PlayerRepository playerRepo;

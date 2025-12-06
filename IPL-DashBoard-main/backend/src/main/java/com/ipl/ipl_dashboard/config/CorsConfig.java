@@ -17,7 +17,8 @@ public class CorsConfig {
         // Allow requests from these origins
         config.addAllowedOrigin("http://localhost:3000");                              // Local dev
         config.addAllowedOrigin("http://localhost:5173");                              // Vite dev
-        config.addAllowedOrigin("https://ipl-dashboard-frontend.vercel.app");          // Vercel production
+        config.addAllowedOrigin("https://ipl-dashboard-frontend.vercel.app");          // Vercel production (old)
+        config.addAllowedOrigin("https://ipl-dash-board-tau.vercel.app");              // Vercel production (new)
         config.addAllowedOrigin("https://*.vercel.app");                               // All Vercel preview/prod URLs
         
         // Allow all HTTP methods

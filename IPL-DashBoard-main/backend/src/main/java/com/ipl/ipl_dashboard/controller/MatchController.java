@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/match")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://*.vercel.app"}, allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://ipl-dash-board-tau.vercel.app", "https://*.vercel.app"}, allowedHeaders = "*")
 public class MatchController {
 
     private final MatchRepository matchRepo;
