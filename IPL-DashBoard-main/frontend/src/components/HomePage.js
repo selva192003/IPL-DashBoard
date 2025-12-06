@@ -46,10 +46,61 @@ const HomePage = () => {
                     </div>
                 </header>
 
-                {/* Features Section - More dynamic layout */}
+                {/* IPL Information Section */}
+                <section className="w-full px-4 sm:px-6 lg:px-8 mb-16">
+                    <div className="bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 p-8 rounded-3xl shadow-2xl border border-yellow-500">
+                        <h2 className="text-4xl font-extrabold text-center text-yellow-300 mb-8 drop-shadow-md">
+                            About the Indian Premier League
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-indigo-100">
+                            <div className="space-y-4">
+                                <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                                    <h3 className="text-2xl font-bold text-yellow-400 mb-3 flex items-center">
+                                        <span className="mr-3">📅</span> IPL History
+                                    </h3>
+                                    <p className="text-lg leading-relaxed">
+                                        The Indian Premier League (IPL) was founded in <strong>2008</strong> by the Board of Control for Cricket in India (BCCI). 
+                                        It revolutionized cricket with its Twenty20 format, combining sports and entertainment like never before.
+                                    </p>
+                                </div>
+                                <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                                    <h3 className="text-2xl font-bold text-yellow-400 mb-3 flex items-center">
+                                        <span className="mr-3">👑</span> Most Successful Team
+                                    </h3>
+                                    <p className="text-lg leading-relaxed">
+                                        <strong>Mumbai Indians</strong> and <strong>Chennai Super Kings</strong> are the most successful franchises, 
+                                        each winning <strong>5 IPL titles</strong>. Mumbai Indians hold the record for most championships.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                                    <h3 className="text-2xl font-bold text-yellow-400 mb-3 flex items-center">
+                                        <span className="mr-3">🏏</span> Tournament Format
+                                    </h3>
+                                    <p className="text-lg leading-relaxed">
+                                        IPL features 10 teams competing in a round-robin format followed by playoffs. 
+                                        The tournament showcases the best cricketers from around the world in fast-paced T20 matches.
+                                    </p>
+                                </div>
+                                <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                                    <h3 className="text-2xl font-bold text-yellow-400 mb-3 flex items-center">
+                                        <span className="mr-3">💫</span> Global Impact
+                                    </h3>
+                                    <p className="text-lg leading-relaxed">
+                                        IPL is one of the most-watched cricket leagues globally, attracting millions of fans. 
+                                        It has become a platform for young talent and a celebration of cricket's diverse spirit.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Project Features Section */}
                 <section className="w-full px-4 sm:px-6 lg:px-8 mb-16">
                     <h2 className="text-4xl font-extrabold text-center text-white mb-12 drop-shadow-md">
-                        Unleash the Power of Data
+                        What's Inside This Dashboard
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div className="feature-card bg-gray-800 p-8 rounded-2xl shadow-2xl transform hover:-translate-y-3 transition-all duration-500 ease-in-out border border-indigo-700 hover:border-yellow-400 cursor-pointer">
@@ -97,10 +148,54 @@ const HomePage = () => {
                     </div>
                 </section>
 
-                {/* Footer */}
-                <footer className="w-full max-w-4xl text-center text-indigo-300 text-lg mt-16 pt-8 border-t border-indigo-700 opacity-80">
-                    <p>&copy; {new Date().getFullYear()} IPL Odyssey. All rights reserved.</p>
-                    <p className="mt-2 text-indigo-400">Crafted with passion for cricket analytics and modern web development.</p>
+                {/* Footer with Credits */}
+                <footer className="w-full text-center mt-20 pt-12 pb-8 border-t-2 border-indigo-700 bg-gradient-to-b from-transparent to-gray-900">
+                    <div className="max-w-4xl mx-auto space-y-6">
+                        {/* Credits */}
+                        <div className="bg-gray-800 bg-opacity-50 p-6 rounded-2xl border border-indigo-600 shadow-xl">
+                            <h3 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center justify-center">
+                                <span className="mr-3">👨‍💻</span> Created By
+                            </h3>
+                            <p className="text-xl text-white font-semibold mb-2">Selva</p>
+                            <p className="text-indigo-300 text-lg leading-relaxed">
+                                Full-stack developer passionate about cricket analytics and modern web technologies. 
+                                Built with React, Spring Boot, and deployed on Vercel & Render.
+                            </p>
+                        </div>
+
+                        {/* Technology Stack */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-indigo-300">
+                            <div className="flex flex-col items-center space-y-2">
+                                <div className="text-3xl">⚛️</div>
+                                <span className="font-semibold">React</span>
+                            </div>
+                            <div className="flex flex-col items-center space-y-2">
+                                <div className="text-3xl">🍃</div>
+                                <span className="font-semibold">Spring Boot</span>
+                            </div>
+                            <div className="flex flex-col items-center space-y-2">
+                                <div className="text-3xl">🎨</div>
+                                <span className="font-semibold">Tailwind CSS</span>
+                            </div>
+                            <div className="flex flex-col items-center space-y-2">
+                                <div className="text-3xl">🗄️</div>
+                                <span className="font-semibold">PostgreSQL</span>
+                            </div>
+                        </div>
+
+                        {/* Copyright */}
+                        <div className="pt-6 border-t border-indigo-800">
+                            <p className="text-indigo-300 text-lg">&copy; {new Date().getFullYear()} IPL Dashboard. All rights reserved.</p>
+                            <p className="mt-2 text-indigo-400">Crafted with ❤️ for cricket enthusiasts and data lovers</p>
+                        </div>
+
+                        {/* Project Info */}
+                        <div className="text-indigo-400 text-sm space-y-1">
+                            <p>📊 Over 1,000+ matches analyzed</p>
+                            <p>🏏 15 teams tracked across multiple seasons</p>
+                            <p>⭐ 290+ player profiles and statistics</p>
+                        </div>
+                    </div>
                 </footer>
             </div>
         </div>
