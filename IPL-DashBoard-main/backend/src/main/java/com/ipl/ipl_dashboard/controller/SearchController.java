@@ -7,7 +7,6 @@ import com.ipl.ipl_dashboard.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +18,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/search")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://*.vercel.app"}, allowedHeaders = "*")
-public class SearchController {
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/api/v1/search")
 public class SearchController {
 
     private final TeamRepository teamRepo;
