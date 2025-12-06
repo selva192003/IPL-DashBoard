@@ -4,7 +4,7 @@ services:
   - type: web
     name: ipl-backend
     repo: https://github.com/selva192003/IPL-DashBoard.git
-    branch: feature/team-branding
+    branch: deploy/render-image
     path: backend
     env: java
     buildCommand: ./mvnw -DskipTests package
@@ -14,9 +14,10 @@ services:
   - type: static
     name: ipl-frontend
     repo: https://github.com/selva192003/IPL-DashBoard.git
-    branch: feature/team-branding
+    branch: main
     path: frontend
     env: static
     buildCommand: npm install && npm run build
     publishPath: build
     autoDeploy: true
+
