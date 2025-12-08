@@ -19,7 +19,6 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:5173");                              // Vite dev
         config.addAllowedOrigin("https://ipl-dashboard-frontend.vercel.app");          // Vercel production (old)
         config.addAllowedOrigin("https://ipl-dash-board-tau.vercel.app");              // Vercel production (new)
-        config.addAllowedOrigin("https://*.vercel.app");                               // All Vercel preview/prod URLs
         
         // Allow all HTTP methods
         config.addAllowedMethod("*");
@@ -28,7 +27,7 @@ public class CorsConfig {
         config.addAllowedHeader("*");
         
         // Allow credentials (cookies, auth headers)
-        config.setAllowCredentials(true);
+        config.setAllowCredentials(false);
         
         // Max age for preflight requests (1 hour)
         config.setMaxAge(3600L);

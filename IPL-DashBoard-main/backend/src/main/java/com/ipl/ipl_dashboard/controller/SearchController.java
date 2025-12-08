@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/search")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://ipl-dashboard-frontend.vercel.app", "https://ipl-dash-board-tau.vercel.app", "https://*.vercel.app"}, allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 public class SearchController {
 
     private final TeamRepository teamRepo;
