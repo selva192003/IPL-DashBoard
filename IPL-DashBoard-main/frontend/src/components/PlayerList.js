@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 // Define the base URL using the environment variable.
 // This is crucial for Vercel to connect to the Render backend in production.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
 
 const PlayerList = () => {
     const [allPlayers, setAllPlayers] = useState([]); // Store all fetched players

@@ -7,7 +7,7 @@ import Loader from './Loader';
 // Define the base URL using the environment variable.
 // In development, this will be an empty string, relying on the package.json proxy.
 // In production (Vercel), it will be set to the Render backend URL.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
 
 const HeadToHeadPage = () => {
     const [teams, setTeams] = useState([]);

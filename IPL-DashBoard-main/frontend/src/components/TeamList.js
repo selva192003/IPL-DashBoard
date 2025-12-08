@@ -6,7 +6,7 @@ import teamMeta from '../data/teamMeta.json';
 
 // Define the base URL using the environment variable.
 // In a production build on Vercel, this will be the Render URL.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
 
 // helper: find meta by teamName case-insensitive, trimmed
 function normalizeKey(s){

@@ -6,7 +6,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import axios from 'axios'; // <-- FIX 1: ADDED MISSING AXIOS IMPORT
 
 // Define the base URL using the environment variable.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+// This is crucial for Vercel to connect to the Render backend in production.
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
 
 export const TeamPage = () => {
     const [team, setTeam] = useState({ matches: [] });

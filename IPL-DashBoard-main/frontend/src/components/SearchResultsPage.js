@@ -5,7 +5,7 @@ import Loader from './Loader';
 
 // Define the base URL using the environment variable.
 // This is crucial for Vercel to connect to the Render backend in production.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
 
 const SearchResultsPage = () => {
     const [results, setResults] = useState(null);
