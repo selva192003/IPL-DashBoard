@@ -4,11 +4,17 @@
 const getBackendUrl = () => {
   // Priority order:
   // 1. Environment variable from Vercel (REACT_APP_BACKEND_URL)
-  // 2. Production backend URL (Render)
+  // 2. Production backend URL (Render) - CORRECT URL
   // 3. Local development fallback
   
   if (process.env.REACT_APP_BACKEND_URL) {
-    return process.env.REACT_APP_BACKEND_URL;
+    // Validate that it's the correct backend
+    const url = process.env.REACT_APP_BACKEND_URL;
+    if (url.includes('ipl-dashboard') || url.includes('localhost')) {
+      return url;
+    }
+    // If env var is wrong, use fallback
+    console.warn('Invalid backend URL in env var, using fallback:', url);
   }
   
   // Check if we're in production (deployed on Vercel)
