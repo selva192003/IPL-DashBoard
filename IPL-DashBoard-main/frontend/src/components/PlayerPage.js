@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
-
-// Define the base URL using the environment variable.
-// This is crucial for Vercel to connect to the Render backend in production.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
+import { API_BASE_URL } from '../config';
 
 const PlayerPage = () => {
     const [player, setPlayer] = useState(null);
@@ -20,13 +17,13 @@ const PlayerPage = () => {
                 setLoading(true);
                 setError(null);
 
-                // CORRECTED: Use BASE_URL prefix for player details API call
-                const playerResponse = await fetch(`${BASE_URL}/api/v1/players/${playerName}`);
+                // Using centralized config for backend URL
+                const playerResponse = await fetch(`${API_BASE_URL}/api/v1/players/${playerName}`);
                 const playerData = await playerResponse.json();
                 setPlayer(playerData);
 
-                // CORRECTED: Use BASE_URL prefix for player matches API call
-                const matchesResponse = await fetch(`${BASE_URL}/api/v1/players/${playerName}/player-of-match-awards`);
+                // Using centralized config for backend URL
+                const matchesResponse = await fetch(`${API_BASE_URL}/api/v1/players/${playerName}/player-of-match-awards`);
                 const matchesData = await matchesResponse.json();
                 setPlayerMatches(matchesData);
 

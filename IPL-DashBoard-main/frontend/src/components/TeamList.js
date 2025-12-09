@@ -3,10 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import teamMeta from '../data/teamMeta.json';
-
-// Define the base URL using the environment variable.
-// In a production build on Vercel, this will be the Render URL.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
+import { API_BASE_URL } from '../config';
 
 // helper: find meta by teamName case-insensitive, trimmed
 function normalizeKey(s){
@@ -34,8 +31,8 @@ const TeamList = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // CHANGED: Prepend BASE_URL to the API path
-                const response = await axios.get(`${BASE_URL}/api/v1/team`);
+                // Using centralized config for backend URL
+                const response = await axios.get(`${API_BASE_URL}/api/v1/team`);
                 setTeams(response.data);
                 setLoading(false);
             } catch (err) {

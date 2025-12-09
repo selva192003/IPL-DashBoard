@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loader from './Loader';
 import { Link } from 'react-router-dom';
-
-// Define the base URL using the environment variable.
-// This is crucial for Vercel to connect to the Render backend in production.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
+import { API_BASE_URL } from '../config';
 
 const PlayerList = () => {
     const [allPlayers, setAllPlayers] = useState([]); // Store all fetched players
@@ -20,8 +17,8 @@ const PlayerList = () => {
                 setLoading(true);
                 setError(null);
                 
-                // CORRECTED: Prepend BASE_URL to the API path
-                const response = await axios.get(`${BASE_URL}/api/v1/players`);
+                // Using centralized config for backend URL
+                const response = await axios.get(`${API_BASE_URL}/api/v1/players`);
                 
                 setAllPlayers(response.data);
                 setFilteredPlayers(response.data); // Initially display all players

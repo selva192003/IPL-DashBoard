@@ -3,11 +3,8 @@ import { useParams, useLocation } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import axios from 'axios'; // <-- FIX 1: ADDED MISSING AXIOS IMPORT
-
-// Define the base URL using the environment variable.
-// This is crucial for Vercel to connect to the Render backend in production.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
+import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 export const TeamPage = () => {
     const [team, setTeam] = useState({ matches: [] });
@@ -41,10 +38,10 @@ export const TeamPage = () => {
                 
                 const query = params.toString(); // <-- 'query' variable is correctly defined here
                 
-                // FIXED: Use BASE_URL prefix and correctly concatenate the query string
-                const matchesApiUrl = `${BASE_URL}/api/v1/team/${teamName}${query ? '?' + query : ''}`;
+                // Using centralized config for backend URL
+                const matchesApiUrl = `${API_BASE_URL}/api/v1/team/${teamName}${query ? '?' + query : ''}`;
                 
-                // FIXED: Using axios.get now that axios is imported
+                // Using axios.get now that axios is imported
                 const matchesResponse = await axios.get(matchesApiUrl);
                 const matchesData = matchesResponse.data; // axios wraps the response data
                 

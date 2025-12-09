@@ -3,11 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
-
-// Define the base URL using the environment variable.
-// In development, this will be an empty string, relying on the package.json proxy.
-// In production (Vercel), it will be set to the Render backend URL.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
+import { API_BASE_URL } from '../config';
 
 const HeadToHeadPage = () => {
     const [teams, setTeams] = useState([]);
@@ -21,8 +17,8 @@ const HeadToHeadPage = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // Use the BASE_URL prefix for the team list API call
-                const response = await axios.get(`${BASE_URL}/api/v1/team`);
+                // Using centralized config for backend URL
+                const response = await axios.get(`${API_BASE_URL}/api/v1/team`);
                 setTeams(response.data);
                 if (response.data.length > 1) {
                     setSelectedTeam1(response.data[0].teamName);
@@ -44,8 +40,8 @@ const HeadToHeadPage = () => {
         setLoading(true);
         setError(null);
         try {
-            // Use the BASE_URL prefix for the head-to-head API call
-            const response = await axios.get(`${BASE_URL}/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
+            // Using centralized config for backend URL
+            const response = await axios.get(`${API_BASE_URL}/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
             setHeadToHeadData(response.data);
             setLoading(false);
         } catch (err) {

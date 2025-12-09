@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 import Loader from './Loader';
-
-// Define the base URL using the environment variable.
-// This is crucial for Vercel to connect to the Render backend in production.
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://ipl-dashboard-1-ff0d.onrender.com';
+import { API_BASE_URL } from '../config';
 
 const SearchResultsPage = () => {
     const [results, setResults] = useState(null);
@@ -26,8 +23,8 @@ const SearchResultsPage = () => {
                 setLoading(true);
                 setError(null);
                 
-                // CORRECTED: Use BASE_URL prefix for the search API call
-                const response = await axios.get(`${BASE_URL}/api/v1/search?query=${searchQuery}`);
+                // Using centralized config for backend URL
+                const response = await axios.get(`${API_BASE_URL}/api/v1/search?query=${searchQuery}`);
                 setResults(response.data);
             } catch (err) {
                 console.error("Error fetching search results:", err);
