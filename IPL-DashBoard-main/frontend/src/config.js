@@ -2,24 +2,27 @@
 // This ensures consistent backend URL across all components
 
 const getBackendUrl = () => {
-  // Priority order:
-  // 1. Environment variable from Vercel (REACT_APP_BACKEND_URL)
-  // 2. Production backend URL (Render) - CORRECT URL
-  // 3. Local development fallback
+  // ALWAYS use the correct backend URL
+  // The Render service is: ipl-dashboard-1-ff0d.onrender.com
   
+  const CORRECT_BACKEND = 'https://ipl-dashboard-1-ff0d.onrender.com';
+  
+  // Only accept environment variable if it matches the correct backend
   if (process.env.REACT_APP_BACKEND_URL) {
-    // Validate that it's the correct backend
     const url = process.env.REACT_APP_BACKEND_URL;
-    if (url.includes('ipl-dashboard') || url.includes('localhost')) {
+    // Only accept if it's the correct Render service or localhost
+    if (url.includes('ipl-dashboard-1-ff0d.onrender.com') || url.includes('localhost')) {
       return url;
     }
-    // If env var is wrong, use fallback
-    console.warn('Invalid backend URL in env var, using fallback:', url);
+    // Log warning about invalid env var
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('⚠️ Invalid REACT_APP_BACKEND_URL detected. Using correct backend.');
+    }
   }
   
-  // Check if we're in production (deployed on Vercel)
+  // In production, always use the correct Render backend
   if (process.env.NODE_ENV === 'production') {
-    return 'https://ipl-dashboard-1-ff0d.onrender.com';
+    return CORRECT_BACKEND;
   }
   
   // Local development - use proxy from package.json
