@@ -31,6 +31,11 @@ const getBackendUrl = () => {
 
 export const API_BASE_URL = getBackendUrl();
 
+// Log the backend URL being used (helps with debugging)
+if (process.env.NODE_ENV === 'production') {
+  console.log('🎯 Backend URL:', API_BASE_URL);
+}
+
 // API Endpoints
 export const API_ENDPOINTS = {
   TEAMS: `${API_BASE_URL}/api/v1/team`,
