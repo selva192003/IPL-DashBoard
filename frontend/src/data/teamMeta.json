@@ -1,0 +1,17 @@
+{
+  "Chennai Super Kings": { "primaryColor": "#F7C600", "secondaryColor": "#002E6D", "tagline": "Whistle Podu (Blow the Whistle)", "logo": "/logos/Csk.jpg" },
+  "Mumbai Indians": { "primaryColor": "#003A7C", "secondaryColor": "#FFD200", "tagline": "Duniya Hila Denge Hum (We will rock the world)", "logo": "/logos/mi.jpg" },
+  "Royal Challengers Bangalore": { "primaryColor": "#C8102E", "secondaryColor": "#FFB400", "tagline": "Ee Sala Cup Namde (This year the cup is ours)", "logo": "/logos/RCB.jpg" },
+  "Kolkata Knight Riders": { "primaryColor": "#3B0A45", "secondaryColor": "#FDB827", "tagline": "Korbo, Lorbo, Jeetbo Re (We will act, fight, and win!)", "logo": "/logos/kkr.jpg" },
+  "Rajasthan Royals": { "primaryColor": "#1D4E89", "secondaryColor": "#F9A8D4", "tagline": "Halla Bol (Raise Your Voice)", "logo": "/logos/rr.jpg" },
+  "Delhi Capitals": { "primaryColor": "#012C5A", "secondaryColor": "#7C3AED", "tagline": "Dildaar Dilli", "logo": "/logos/DC.jpg" },
+  "Sunrisers Hyderabad": { "primaryColor": "#FF6A00", "secondaryColor": "#0B132B", "tagline": "Rise Up to Every Challenge (Orange Army)", "logo": "/logos/SRH.jpg" },
+  "Punjab Kings": { "primaryColor": "#D7263D", "secondaryColor": "#FFD60A", "tagline": "Sada Punjab (Our Punjab)", "logo": "/logos/pbks.jpg" },
+  "Gujarat Titans": { "primaryColor": "#006A4E", "secondaryColor": "#00A1E4", "tagline": "Sounds Like Thunder, Strikes Like Lightning, We Stop at Nothing", "logo": "/logos/GT.jpg" },
+  "Lucknow Super Giants": { "primaryColor": "#1D4ED8", "secondaryColor": "#FFD54A", "tagline": "Bhavhar Ka Team", "logo": "/logos/LSG.jpg" },
+  "Deccan Chargers": { "primaryColor": "#003366", "secondaryColor": "#00AEEF", "tagline": "Guts and Glory (Go Charging!)", "logo": "/logos/DECCAN_CHARGERS.jpg" },
+  "Rising Pune Supergiants": { "primaryColor": "#002D62", "secondaryColor": "#FF6F3C", "tagline": "Dum Ka Naya Rang (A new color of power)", "logo": "/logos/RPS.jpg" },
+  "Pune Warriors India": { "primaryColor": "#B2182B", "secondaryColor": "#F5AB35", "tagline": "Saahasala Khel Mandla (Chalo Khel Mandla)", "logo": "/logos/PUNE_WARRIORS.jpg" },
+  "Gujarat Lions": { "primaryColor": "#E65100", "secondaryColor": "#FFD166", "tagline": "Game Maari Chhe (It's Our Game)", "logo": "/logos/GL.jpg" },
+  "Kochi Tuskers Kerala": { "primaryColor": "#2f855a", "secondaryColor": "#ecc94b", "tagline": "The Power of the Elephant", "logo": "/logos/Kochi_Tuskers_Kerala_Logo.png" }
+}
