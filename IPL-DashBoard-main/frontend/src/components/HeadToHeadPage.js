@@ -16,8 +16,9 @@ const HeadToHeadPage = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // Use the proxied URL for the backend API endpoint
-                const response = await axios.get('/api/v1/team');
+                // Use the backend URL from environment variable
+                const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
+                const response = await axios.get(`${API_BASE}/api/v1/team`);
                 setTeams(response.data);
                 if (response.data.length > 1) {
                     setSelectedTeam1(response.data[0].teamName);
@@ -39,8 +40,9 @@ const HeadToHeadPage = () => {
         setLoading(true);
         setError(null);
         try {
-            // Use the proxied URL for the backend API endpoint
-            const response = await axios.get(`/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
+            // Use the backend URL from environment variable
+            const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
+            const response = await axios.get(`${API_BASE}/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
             setHeadToHeadData(response.data);
             setLoading(false);
         } catch (err) {
