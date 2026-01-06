@@ -29,6 +29,8 @@ const TeamList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const safeTeams = Array.isArray(teams) ? teams : [];
+
     useEffect(() => {
         const fetchTeams = async () => {
             try {
@@ -67,7 +69,7 @@ const TeamList = () => {
         return <div className="text-center text-red-500 p-4">{error}</div>;
     }
 
-    if (teams.length === 0) {
+    if (safeTeams.length === 0) {
         return <div className="text-center p-4">No teams available.</div>;
     }
 
@@ -75,7 +77,7 @@ const TeamList = () => {
         <div className="TeamList p-4">
             <h1 className="text-4xl font-bold text-center mb-6 text-indigo-400">IPL Teams</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {teams.map(team => {
+                {safeTeams.map(team => {
                     const meta = findMeta(team.teamName) || {};
                     const primary = team.primaryColor || meta.primaryColor || '#1f2937';
                     const secondary = team.secondaryColor || meta.secondaryColor || '#374151';
