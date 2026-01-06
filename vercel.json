@@ -1,19 +1,5 @@
 {
   "version": 2,
   "buildCommand": "cd IPL-DashBoard-main/frontend && npm install && npm run build",
-  "outputDirectory": "IPL-DashBoard-main/frontend/build",
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/api/$1"
-    },
-    {
-      "source": "/match/(.*)",
-      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/match/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "outputDirectory": "IPL-DashBoard-main/frontend/build"
 }
