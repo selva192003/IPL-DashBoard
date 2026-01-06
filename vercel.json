@@ -2,34 +2,18 @@
   "version": 2,
   "buildCommand": "cd IPL-DashBoard-main/frontend && npm install && npm run build",
   "outputDirectory": "IPL-DashBoard-main/frontend/build",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "https://ipl-dashboard-1-ff0d.onrender.com/api/$1"
+      "source": "/api/(.*)",
+      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/api/$1"
     },
     {
-      "src": "/match/(.*)",
-      "dest": "https://ipl-dashboard-1-ff0d.onrender.com/match/$1"
+      "source": "/match/(.*)",
+      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/match/$1"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/public/(.*)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "/manifest.json"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
