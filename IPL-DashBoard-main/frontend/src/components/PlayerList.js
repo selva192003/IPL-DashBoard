@@ -12,6 +12,9 @@ const PlayerList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const safeAllPlayers = Array.isArray(allPlayers) ? allPlayers : [];
+    const safeFilteredPlayers = Array.isArray(filteredPlayers) ? filteredPlayers : [];
+
     useEffect(() => {
         const fetchPlayers = async () => {
             try {
@@ -47,11 +50,12 @@ const PlayerList = () => {
 
     // New: Effect to filter players based on search query
     useEffect(() => {
+        const sourcePlayers = Array.isArray(allPlayers) ? allPlayers : [];
         if (searchQuery.trim() === '') {
-            setFilteredPlayers(allPlayers); // If search is empty, show all players
+            setFilteredPlayers(sourcePlayers); // If search is empty, show all players
         } else {
             const lowerCaseQuery = searchQuery.toLowerCase();
-            const results = allPlayers.filter(player =>
+            const results = sourcePlayers.filter(player =>
                 player.name.toLowerCase().includes(lowerCaseQuery)
             );
             setFilteredPlayers(results);
@@ -66,7 +70,7 @@ const PlayerList = () => {
         return <div className="text-center text-red-500 p-4">{error}</div>;
     }
 
-    if (allPlayers.length === 0 && !loading) { // Check allPlayers length only after loading
+    if (safeAllPlayers.length === 0 && !loading) { // Check allPlayers length only after loading
         return <div className="text-center p-4">No players found in the database.</div>;
     }
 
@@ -87,8 +91,8 @@ const PlayerList = () => {
             {/* END NEW: Local Search Bar */}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {filteredPlayers.length > 0 ? (
-                    filteredPlayers.map(player => (
+                {safeFilteredPlayers.length > 0 ? (
+                    safeFilteredPlayers.map(player => (
                         <Link to={`/players/${player.name}`} key={player.name} className="block">
                             <div className="player-card bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
                                 <h2 className="text-xl font-semibold text-indigo-700">{player.name}</h2>
