@@ -14,8 +14,8 @@ const MatchPage = () => {
                 setLoading(true);
                 setError(null);
                 // Fetch match details via same-origin proxy:
-                // Frontend route remains /match/:id, backend data is fetched from /api/match/:id.
-                const response = await fetch(`/api/match/${encodeURIComponent(id)}`);
+                // Frontend route remains /matches/:id, backend data is fetched from /api/v1/match/:id.
+                const response = await fetch(`/api/v1/match/${encodeURIComponent(id)}`);
                 const contentType = response.headers.get('content-type') || '';
                 if (!response.ok) {
                     const text = await response.text();

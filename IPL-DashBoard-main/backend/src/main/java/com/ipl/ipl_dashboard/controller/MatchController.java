@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping({"/match", "/api/v1/match"})
 @RequiredArgsConstructor
 @CrossOrigin
 public class MatchController {
