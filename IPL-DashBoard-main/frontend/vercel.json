@@ -4,6 +4,10 @@
   "outputDirectory": "build",
   "rewrites": [
     {
+      "source": "/api/v1/match/:path*",
+      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/match/:path*"
+    },
+    {
       "source": "/api/match/:path*",
       "destination": "https://ipl-dashboard-1-ff0d.onrender.com/match/:path*"
     },
