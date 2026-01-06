@@ -1,5 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "cd IPL-DashBoard-main/frontend && export REACT_APP_BACKEND_URL=\"https://ipl-dashboard-1-ff0d.onrender.com\" && npm install && npm run build",
-  "outputDirectory": "IPL-DashBoard-main/frontend/build"
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/build",
+  "rewrites": [
+    {
+      "source": "/api/match/:path*",
+      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/match/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/api/:path*"
+    }
+  ]
 }
