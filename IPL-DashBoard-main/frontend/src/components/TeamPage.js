@@ -33,16 +33,25 @@ export const TeamPage = () => {
         () => {
             const fetchTeam = async () => {
                 try {
-                    // Build API URL: allow REACT_APP_API_URL to override base (for deployed backend)
-                        const API_BASE = process.env.REACT_APP_API_URL || '';
-                        const apiPath = selectedSeason
-                            ? `/api/v1/team/${teamName}?season=${selectedSeason}`
-                            : `/api/v1/team/${teamName}`;
-                        const apiUrl = apiPath.startsWith('http') ? apiPath : `${API_BASE}${apiPath}`;
+                    // Always use same-origin API paths so Vercel rewrites / CRA proxy can handle routing.
+                    const encodedTeamName = encodeURIComponent(teamName);
+                    const seasonParam = selectedSeason && selectedSeason !== 'All Seasons'
+                        ? `?season=${encodeURIComponent(selectedSeason)}`
+                        : '';
+                    const apiUrl = `/api/v1/team/${encodedTeamName}${seasonParam}`;
 
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
-                        setTeam(data);
+                    const response = await fetch(apiUrl);
+                    const contentType = response.headers.get('content-type') || '';
+                    if (!response.ok) {
+                        const text = await response.text();
+                        throw new Error(`Failed to fetch team (${response.status}): ${text.slice(0, 120)}`);
+                    }
+                    if (!contentType.includes('application/json')) {
+                        const text = await response.text();
+                        throw new Error(`Expected JSON but got: ${text.slice(0, 120)}`);
+                    }
+                    const data = await response.json();
+                    setTeam(data);
                 } catch (error) {
                     console.error("Error fetching team data:", error);
                 }

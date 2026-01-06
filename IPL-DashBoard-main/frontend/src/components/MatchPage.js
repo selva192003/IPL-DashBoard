@@ -13,8 +13,18 @@ const MatchPage = () => {
             try {
                 setLoading(true);
                 setError(null);
-                // Fetch match details using the backend endpoint /api/v1/match/{id}
-                const response = await fetch(`${process.env.REACT_APP_API_ROOT_URL.replace('/api/v1', '')}/match/${id}`);
+                // Fetch match details via same-origin proxy:
+                // Frontend route remains /match/:id, backend data is fetched from /api/match/:id.
+                const response = await fetch(`/api/match/${encodeURIComponent(id)}`);
+                const contentType = response.headers.get('content-type') || '';
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(`Failed to fetch match (${response.status}): ${text.slice(0, 120)}`);
+                }
+                if (!contentType.includes('application/json')) {
+                    const text = await response.text();
+                    throw new Error(`Expected JSON but got: ${text.slice(0, 120)}`);
+                }
                 const data = await response.json();
                 setMatch(data);
             } catch (err) {
