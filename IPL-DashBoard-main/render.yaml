@@ -5,7 +5,7 @@ services:
     name: ipl-backend
     repo: https://github.com/selva192003/IPL-DashBoard.git
     branch: main
-    path: backend
+    path: IPL-DashBoard-main/backend
     env: java
     buildCommand: ./mvnw -DskipTests package
     startCommand: java -jar target/*.jar
@@ -15,7 +15,7 @@ services:
     name: ipl-frontend
     repo: https://github.com/selva192003/IPL-DashBoard.git
     branch: main
-    path: frontend
+    path: IPL-DashBoard-main/frontend
     env: static
     buildCommand: npm install && npm run build
     publishPath: build
