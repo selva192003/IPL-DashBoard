@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/players") // Base path for player endpoints
+@CrossOrigin(origins = "*")
 public class PlayerController {
 
     private final PlayerRepository playerRepo;

@@ -20,7 +20,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // This is the critical line for CORS policy for WebSockets
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:3000")
+            .setAllowedOriginPatterns(
+                "http://localhost:3000",
+                "https://*.vercel.app",
+                "https://ipl-dashboard-frontend.vercel.app"
+            )
                 .withSockJS();
     }
 }
