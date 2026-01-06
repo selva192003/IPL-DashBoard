@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import teamMeta from '../data/teamMeta.json';
 
-const DEFAULT_BACKEND_URL = 'https://ipl-dashboard-1-ff0d.onrender.com';
-
 // helper: find meta by teamName case-insensitive, trimmed
 function normalizeKey(s){
     return s ? s.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
@@ -34,8 +32,8 @@ const TeamList = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                // Use the backend URL from environment variable
-                const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
+                // Use relative API by default (Vercel rewrite / CRA proxy). Optionally allow REACT_APP_API_URL to prefix.
+                const API_BASE = process.env.REACT_APP_API_URL || '';
                 const response = await axios.get(`${API_BASE}/api/v1/team`);
 
                 const data = response.data;

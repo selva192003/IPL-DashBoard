@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
 
-const DEFAULT_BACKEND_URL = 'https://ipl-dashboard-1-ff0d.onrender.com';
-
 const HeadToHeadPage = () => {
     const [teams, setTeams] = useState([]);
     const [selectedTeam1, setSelectedTeam1] = useState('');
@@ -25,7 +23,7 @@ const HeadToHeadPage = () => {
         const fetchTeams = async () => {
             try {
                 // Use the backend URL from environment variable
-                const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
+                const API_BASE = process.env.REACT_APP_API_URL || '';
                 const response = await axios.get(`${API_BASE}/api/v1/team`);
                 const data = response.data;
                 const teamsArray = Array.isArray(data)
@@ -60,7 +58,7 @@ const HeadToHeadPage = () => {
         setError(null);
         try {
             // Use the backend URL from environment variable
-            const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
+            const API_BASE = process.env.REACT_APP_API_URL || '';
             const team1 = encodeURIComponent(selectedTeam1);
             const team2 = encodeURIComponent(selectedTeam2);
             const response = await axios.get(`${API_BASE}/api/v1/team/head-to-head?team1Name=${team1}&team2Name=${team2}`);

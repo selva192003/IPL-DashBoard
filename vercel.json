@@ -1,5 +1,11 @@
 {
   "version": 2,
-  "buildCommand": "REACT_APP_BACKEND_URL=\"https://ipl-dashboard-1-ff0d.onrender.com\" npm run build",
-  "outputDirectory": "build"
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://ipl-dashboard-1-ff0d.onrender.com/api/:path*"
+    }
+  ]
 }

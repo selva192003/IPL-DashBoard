@@ -3,8 +3,6 @@ import axios from 'axios';
 import Loader from './Loader';
 import { Link } from 'react-router-dom';
 
-const DEFAULT_BACKEND_URL = 'https://ipl-dashboard-1-ff0d.onrender.com';
-
 const PlayerList = () => {
     const [allPlayers, setAllPlayers] = useState([]); // Store all fetched players
     const [filteredPlayers, setFilteredPlayers] = useState([]); // Players displayed after filtering
@@ -20,8 +18,8 @@ const PlayerList = () => {
             try {
                 setLoading(true);
                 setError(null);
-                // Use the backend URL from environment variable
-                const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
+                // Use relative API by default (Vercel rewrite / CRA proxy). Optionally allow REACT_APP_API_URL to prefix.
+                const API_BASE = process.env.REACT_APP_API_URL || '';
                 const response = await axios.get(`${API_BASE}/api/v1/players`);
 
                 const data = response.data;
