@@ -3,6 +3,8 @@ import axios from 'axios';
 import Loader from './Loader';
 import { Link } from 'react-router-dom';
 
+const DEFAULT_BACKEND_URL = 'https://ipl-dashboard-1-ff0d.onrender.com';
+
 const PlayerList = () => {
     const [allPlayers, setAllPlayers] = useState([]); // Store all fetched players
     const [filteredPlayers, setFilteredPlayers] = useState([]); // Players displayed after filtering
@@ -16,10 +18,22 @@ const PlayerList = () => {
                 setLoading(true);
                 setError(null);
                 // Use the backend URL from environment variable
-                const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
+                const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
                 const response = await axios.get(`${API_BASE}/api/v1/players`);
-                setAllPlayers(response.data);
-                setFilteredPlayers(response.data); // Initially display all players
+
+                const data = response.data;
+                const playersArray = Array.isArray(data)
+                    ? data
+                    : Array.isArray(data?.players)
+                        ? data.players
+                        : [];
+
+                if (!Array.isArray(data)) {
+                    console.warn('Expected array from /api/v1/players but got:', data);
+                }
+
+                setAllPlayers(playersArray);
+                setFilteredPlayers(playersArray); // Initially display all players
             } catch (err) {
                 console.error("Error fetching players:", err);
                 setError("Failed to load players. Please try again later.");

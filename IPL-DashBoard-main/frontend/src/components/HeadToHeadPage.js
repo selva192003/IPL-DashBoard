@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
 
+const DEFAULT_BACKEND_URL = 'https://ipl-dashboard-1-ff0d.onrender.com';
+
 const HeadToHeadPage = () => {
     const [teams, setTeams] = useState([]);
     const [selectedTeam1, setSelectedTeam1] = useState('');
@@ -17,12 +19,23 @@ const HeadToHeadPage = () => {
         const fetchTeams = async () => {
             try {
                 // Use the backend URL from environment variable
-                const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
+                const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
                 const response = await axios.get(`${API_BASE}/api/v1/team`);
-                setTeams(response.data);
-                if (response.data.length > 1) {
-                    setSelectedTeam1(response.data[0].teamName);
-                    setSelectedTeam2(response.data[1].teamName);
+                const data = response.data;
+                const teamsArray = Array.isArray(data)
+                    ? data
+                    : Array.isArray(data?.teams)
+                        ? data.teams
+                        : [];
+
+                if (!Array.isArray(data)) {
+                    console.warn('Expected array from /api/v1/team but got:', data);
+                }
+
+                setTeams(teamsArray);
+                if (teamsArray.length > 1) {
+                    setSelectedTeam1(teamsArray[0].teamName);
+                    setSelectedTeam2(teamsArray[1].teamName);
                 }
                 setTeamsLoading(false);
             } catch (err) {
@@ -41,8 +54,10 @@ const HeadToHeadPage = () => {
         setError(null);
         try {
             // Use the backend URL from environment variable
-            const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
-            const response = await axios.get(`${API_BASE}/api/v1/team/head-to-head?team1Name=${selectedTeam1}&team2Name=${selectedTeam2}`);
+            const API_BASE = process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_API_URL || DEFAULT_BACKEND_URL;
+            const team1 = encodeURIComponent(selectedTeam1);
+            const team2 = encodeURIComponent(selectedTeam2);
+            const response = await axios.get(`${API_BASE}/api/v1/team/head-to-head?team1Name=${team1}&team2Name=${team2}`);
             setHeadToHeadData(response.data);
             setLoading(false);
         } catch (err) {
