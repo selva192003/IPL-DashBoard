@@ -15,6 +15,12 @@ const HeadToHeadPage = () => {
     const [teamsLoading, setTeamsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const safeTeams = Array.isArray(teams) ? teams : [];
+    const safeMatches = Array.isArray(headToHeadData?.matches) ? headToHeadData.matches : [];
+    const team1Wins = typeof headToHeadData?.team1Wins === 'number' ? headToHeadData.team1Wins : 0;
+    const team2Wins = typeof headToHeadData?.team2Wins === 'number' ? headToHeadData.team2Wins : 0;
+    const totalMatches = typeof headToHeadData?.totalMatches === 'number' ? headToHeadData.totalMatches : safeMatches.length;
+
     useEffect(() => {
         const fetchTeams = async () => {
             try {
@@ -83,7 +89,7 @@ const HeadToHeadPage = () => {
                     className="p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={selectedTeam1} 
                     onChange={(e) => setSelectedTeam1(e.target.value)}>
-                    {teams.map(team => (
+                    {safeTeams.map(team => (
                         <option key={team.teamName} value={team.teamName}>{team.teamName}</option>
                     ))}
                 </select>
@@ -92,7 +98,7 @@ const HeadToHeadPage = () => {
                     className="p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={selectedTeam2} 
                     onChange={(e) => setSelectedTeam2(e.target.value)}>
-                    {teams.map(team => (
+                    {safeTeams.map(team => (
                         <option key={team.teamName} value={team.teamName}>{team.teamName}</option>
                     ))}
                 </select>
@@ -109,23 +115,27 @@ const HeadToHeadPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-lg mb-8">
                         <div className="bg-gray-700 p-6 rounded-lg shadow-md">
                             <h3 className="font-semibold">{selectedTeam1} Wins</h3>
-                            <p className="text-3xl font-extrabold text-green-400">{headToHeadData.team1Wins}</p>
+                            <p className="text-3xl font-extrabold text-green-400">{team1Wins}</p>
                         </div>
                         <div className="bg-gray-700 p-6 rounded-lg shadow-md">
                             <h3 className="font-semibold">Total Matches</h3>
-                            <p className="text-3xl font-extrabold text-blue-400">{headToHeadData.totalMatches}</p>
+                            <p className="text-3xl font-extrabold text-blue-400">{totalMatches}</p>
                         </div>
                         <div className="bg-gray-700 p-6 rounded-lg shadow-md">
                             <h3 className="font-semibold">{selectedTeam2} Wins</h3>
-                            <p className="text-3xl font-extrabold text-green-400">{headToHeadData.team2Wins}</p>
+                            <p className="text-3xl font-extrabold text-green-400">{team2Wins}</p>
                         </div>
                     </div>
 
                     <h2 className="text-2xl font-bold text-center mb-4 text-gray-200">Match History</h2>
                     <div className="space-y-4">
-                        {headToHeadData.matches.map(match => (
-                            <MatchCard key={match.id} match={match} teamName={selectedTeam1} />
-                        ))}
+                        {safeMatches.length > 0 ? (
+                            safeMatches.map(match => (
+                                <MatchCard key={match.id} match={match} teamName={selectedTeam1} />
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-300">No matches found for this matchup.</p>
+                        )}
                     </div>
                 </div>
             )}
