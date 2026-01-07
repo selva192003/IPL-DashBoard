@@ -15,5 +15,5 @@ import App from './App';
 test('renders app shell', () => {
   render(<App />);
   // UI renders the product name in multiple places (nav + page + footer).
-  expect(screen.getAllByText(/IPL Dashboard/i).length).toBeGreaterThan(0);
+  expect(screen.getAllByText(/CricPulse/i).length).toBeGreaterThan(0);
 });

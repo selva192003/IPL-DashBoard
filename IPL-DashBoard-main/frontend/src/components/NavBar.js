@@ -75,7 +75,7 @@ const NavBar = () => {
     };
 
     return (
-        <header className="sticky top-0 z-40 ui-nav backdrop-blur">
+        <header className="sticky top-0 z-40 ui-nav ui-chrome backdrop-blur">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
                 <div className="ui-glass relative flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
                     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -83,21 +83,23 @@ const NavBar = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <Link to="/" className="flex items-center gap-2">
+                        <Link to="/" className="group flex items-center gap-2">
                             <div
                                 className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 rounded-2xl border flex items-center justify-center overflow-hidden"
                                 style={{ background: 'var(--ui-surface-muted)', borderColor: 'var(--ui-border)' }}
                             >
                                 <img
                                     src={`${process.env.PUBLIC_URL || ''}/logo.png`}
-                                    alt="Selva J Project"
+                                    alt="CricPulse"
                                     className="h-full w-full object-contain p-1.5 sm:p-2"
                                     draggable="false"
                                 />
                             </div>
                             <div className="leading-tight">
-                                <div className="text-sm font-semibold text-white">IPL Dashboard</div>
-                                <div className="text-xs text-slate-400">Stats • Teams • Players</div>
+                                <div className="text-sm sm:text-base font-extrabold tracking-tighter text-white">CricPulse</div>
+                                <div className="mt-0.5 text-sm italic text-gray-400 transition-colors duration-200 group-hover:text-emerald-300 group-hover:drop-shadow-sm">
+                                    Finally, a dashboard that doesn't choke in the qualifiers.
+                                </div>
                             </div>
                         </Link>
                     </div>

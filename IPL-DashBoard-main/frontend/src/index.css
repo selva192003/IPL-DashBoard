@@ -241,6 +241,13 @@ body {
     box-shadow: 0 8px 18px rgba(11, 18, 32, 0.08);
   }
 
+  /* Header should match footer chrome in day theme. */
+  .theme-day .ui-nav.ui-chrome {
+    border-bottom-color: var(--ui-chrome-border) !important;
+    background: linear-gradient(180deg, var(--ui-chrome-bg) 0%, var(--ui-chrome-bg-2) 100%) !important;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  }
+
   .theme-day .ui-input {
     background: rgba(223, 233, 243, 0.88) !important;
     border-color: var(--ui-border) !important;
