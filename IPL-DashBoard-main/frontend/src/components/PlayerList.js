@@ -170,12 +170,12 @@ const PlayerList = () => {
     return (
         <div className="PlayerList">
             <Reveal className="mb-7">
-                <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <section className="ui-glass relative overflow-hidden rounded-3xl">
                     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/0 via-slate-950/20 to-slate-950/65" />
+                        <div className="absolute inset-0 ui-scrim" />
                         <div className="absolute -top-40 left-1/2 h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-fuchsia-500/10 blur-3xl" />
                         <div className="absolute -bottom-56 right-[-160px] h-[520px] w-[520px] rounded-full bg-cyan-500/10 blur-3xl" />
-                        <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                        <div className="absolute left-0 top-0 ui-hairline" />
                     </div>
 
                     <div className="relative px-6 py-10 sm:px-8">
@@ -226,8 +226,8 @@ const PlayerList = () => {
 
                     <div className="mt-4 ui-divider-soft" />
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-400">
-                        <span className="ui-chip bg-white/5 text-[11px]">Local search · No extra API calls</span>
-                        <span className="ui-chip bg-white/5 text-[11px]">Live count updates</span>
+                        <span className="ui-chip text-[11px]">Local search · No extra API calls</span>
+                        <span className="ui-chip text-[11px]">Live count updates</span>
                     </div>
                 </section>
             </Reveal>

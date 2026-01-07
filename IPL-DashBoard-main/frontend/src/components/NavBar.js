@@ -77,15 +77,23 @@ const NavBar = () => {
     return (
         <header className="sticky top-0 z-40 ui-nav backdrop-blur">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
-                <div className="ui-glass relative flex items-center justify-between gap-3 border border-white/10 px-4 py-3 sm:px-5">
+                <div className="ui-glass relative flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
                     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                        <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/30 to-white/0" />
+                        <div className="absolute left-0 top-0 ui-hairline" />
                     </div>
 
                     <div className="flex items-center gap-3">
                         <Link to="/" className="flex items-center gap-2">
-                            <div className="h-9 w-9 rounded-xl bg-white/10 ring-1 ring-white/10 flex items-center justify-center">
-                                <span className="text-xs font-semibold leading-none tracking-wider text-white">IPL</span>
+                            <div
+                                className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 rounded-2xl border flex items-center justify-center overflow-hidden"
+                                style={{ background: 'var(--ui-surface-muted)', borderColor: 'var(--ui-border)' }}
+                            >
+                                <img
+                                    src={`${process.env.PUBLIC_URL || ''}/logo.png`}
+                                    alt="Selva J Project"
+                                    className="h-full w-full object-contain p-1.5 sm:p-2"
+                                    draggable="false"
+                                />
                             </div>
                             <div className="leading-tight">
                                 <div className="text-sm font-semibold text-white">IPL Dashboard</div>

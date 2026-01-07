@@ -32,17 +32,24 @@ function TeamTile({ teamName, isWinner, score, overs }) {
   const hasLine2 = Boolean(score) || Boolean(overs);
 
   return (
-    <div className={`rounded-xl border p-3 ${isWinner ? 'border-emerald-400/25 bg-emerald-500/10' : 'border-white/10 bg-white/5'}`}>
+    <div
+      className={`rounded-xl border p-3 ${isWinner ? 'border-emerald-400/25 bg-emerald-500/10' : ''}`}
+      style={!isWinner ? { borderColor: 'var(--ui-border)', background: 'var(--ui-surface-muted)' } : undefined}
+    >
       <div className="flex items-center gap-3">
         {logo ? (
           <img
             src={logo}
             alt={`${teamName} logo`}
-            className="h-11 w-11 rounded-full border border-white/15 bg-white/10 object-contain"
+            className="h-11 w-11 rounded-full border object-contain"
+            style={{ background: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}
             loading="lazy"
           />
         ) : (
-          <div className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-sm font-semibold text-white">
+          <div
+            className="grid h-11 w-11 place-items-center rounded-full border text-sm font-semibold text-white"
+            style={{ background: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}
+          >
             {initials(teamName)}
           </div>
         )}
@@ -50,7 +57,7 @@ function TeamTile({ teamName, isWinner, score, overs }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <div className="min-w-0 flex-1 truncate text-sm font-semibold text-white">{teamName}</div>
-            <span className={`ui-badge ${isWinner ? 'bg-emerald-500/25 text-emerald-100 ring-emerald-300/20' : 'bg-white/10 text-slate-200 ring-white/10'}`}>
+            <span className={`ui-badge ${isWinner ? 'bg-emerald-500/25 text-emerald-100 ring-emerald-300/20' : ''}`}>
               {isWinner ? 'Winner' : 'Opponent'}
             </span>
           </div>
@@ -101,11 +108,11 @@ const IconicMatchWidget = () => {
     <div className="ui-glass relative overflow-hidden p-6">
       <div className="ui-spotlight" aria-hidden="true" />
       <div className="flex items-center justify-between">
-        <div className="ui-chip bg-white/10">Iconic moment</div>
+        <div className="ui-chip">Iconic moment</div>
         <span className="text-xs font-semibold text-slate-300">Legendary matches</span>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-4 shadow-xl">
+      <div className="mt-5 ui-panel p-4 shadow-xl">
         {loading && (
           <div className="text-sm text-slate-300">Loading iconic match…</div>
         )}

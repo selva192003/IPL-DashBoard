@@ -79,10 +79,10 @@ const SearchResultsPage = () => {
 
     return (
         <div className="SearchResultsPage">
-            <div className="mb-7 ui-glass overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-7 relative">
+            <div className="mb-7 ui-glass overflow-hidden rounded-3xl p-6 sm:p-7 relative">
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
-                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                    <div className="absolute inset-0 ui-scrim" />
+                    <div className="absolute left-0 top-0 ui-hairline" />
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -91,8 +91,8 @@ const SearchResultsPage = () => {
                         <p className="ui-subtitle">Results for “{searchQuery}”.</p>
                     </div>
                     <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                        <span className="ui-chip bg-white/5">Teams: {safeTeams.length}</span>
-                        <span className="ui-chip bg-white/5">Players: {safePlayers.length}</span>
+                        <span className="ui-chip">Teams: {safeTeams.length}</span>
+                        <span className="ui-chip">Players: {safePlayers.length}</span>
                     </div>
                 </div>
             </div>
@@ -115,12 +115,12 @@ const SearchResultsPage = () => {
                                 className="group ui-glass ui-tilt-card p-5 text-left relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
-                                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                                    <div className="absolute inset-0 ui-scrim" />
+                                    <div className="absolute left-0 top-0 ui-hairline" />
                                 </div>
                                 <div className="flex items-start justify-between gap-3">
                                     <h3 className="text-base font-semibold text-white">{team.teamName}</h3>
-                                    <span className="shrink-0 ui-chip bg-white/10 text-[11px]">View</span>
+                                    <span className="shrink-0 ui-chip text-[11px]">View</span>
                                 </div>
                                 <div className="mt-4 grid grid-cols-2 gap-3">
                                     <div className="ui-stat-pill">
@@ -160,12 +160,12 @@ const SearchResultsPage = () => {
                                 className="group ui-glass ui-tilt-card p-5 text-left relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
-                                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                                    <div className="absolute inset-0 ui-scrim" />
+                                    <div className="absolute left-0 top-0 ui-hairline" />
                                 </div>
                                 <div className="flex items-start justify-between gap-3">
                                     <h3 className="text-base font-semibold text-white">{player.name}</h3>
-                                    <span className="shrink-0 ui-chip bg-white/10 text-[11px]">View</span>
+                                    <span className="shrink-0 ui-chip text-[11px]">View</span>
                                 </div>
                                 <div className="mt-4 ui-stat-pill">
                                     <div className="value">{player.totalPlayerOfMatchAwards}</div>

@@ -108,16 +108,17 @@ export default function PlayerCard({ player }) {
             aria-label={`Open ${name}`}
         >
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/65" />
-                <div className="absolute -top-24 right-[-120px] h-[260px] w-[260px] rounded-full bg-white/10 blur-3xl" />
-                <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                <div className="absolute inset-0 ui-scrim" />
+                <div className="absolute left-0 top-0 ui-hairline" />
             </div>
 
             <div className="relative ui-feature-card-inner p-6 text-left">
                 <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-4 min-w-0">
-                        <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-slate-950/50 ring-1 ring-white/10">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/0 to-white/20" aria-hidden="true" />
+                        <div
+                            className="relative h-14 w-14 overflow-hidden rounded-2xl border"
+                            style={{ background: 'var(--ui-surface-muted)', borderColor: 'var(--ui-border)' }}
+                        >
                             <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-slate-100" aria-hidden="true">
                                 {initialsFromName(name)}
                             </div>
@@ -134,7 +135,7 @@ export default function PlayerCard({ player }) {
                         </div>
                     </div>
 
-                    <span className={`ui-badge shrink-0 ${chipClass} text-slate-100 ring-white/10`}>
+                    <span className={`ui-badge shrink-0 ${chipClass} text-slate-100`}>
                         View
                     </span>
                 </div>
@@ -155,7 +156,7 @@ export default function PlayerCard({ player }) {
                 <div className="mt-5 ui-divider-soft" />
                 <div className="mt-3 flex items-center justify-between">
                     <span className="text-sm font-semibold text-slate-100 group-hover:text-white">Open profile</span>
-                    <span className="ui-badge bg-white/5">Awards • Matches</span>
+                    <span className="ui-badge">Awards • Matches</span>
                 </div>
             </div>
         </Link>

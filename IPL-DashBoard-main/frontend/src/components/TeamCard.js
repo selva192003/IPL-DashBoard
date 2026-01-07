@@ -93,18 +93,20 @@ const TeamCard = ({ team }) => {
                     className="absolute inset-x-0 top-0 h-28 opacity-95"
                     style={{ background: `linear-gradient(90deg, ${primary}, ${secondary})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/65" />
+                <div className="absolute inset-0 ui-scrim" />
                 <div
                     className="absolute -top-36 left-1/2 h-[360px] w-[640px] -translate-x-1/2 rounded-full blur-3xl"
                     style={{ background: `radial-gradient(circle at 50% 40%, ${primary}33, transparent 60%)` }}
                 />
-                <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                <div className="absolute left-0 top-0 ui-hairline" />
             </div>
 
             <div className="relative ui-feature-card-inner p-6 text-left">
                 <div className="flex items-start gap-4">
-                    <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-slate-950/45 ring-1 ring-white/10">
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/0 to-white/20" aria-hidden="true" />
+                    <div
+                        className="relative h-14 w-14 overflow-hidden rounded-2xl border"
+                        style={{ background: 'var(--ui-surface-muted)', borderColor: 'var(--ui-border)' }}
+                    >
                         <img
                             src={logo}
                             alt={`${team.teamName} logo`}
@@ -116,7 +118,7 @@ const TeamCard = ({ team }) => {
                     <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-3">
                             <h3 className="text-lg font-semibold tracking-tight text-white truncate">{team.teamName}</h3>
-                            <span className="shrink-0 ui-chip bg-white/10 text-[11px]">Team</span>
+                            <span className="shrink-0 ui-chip text-[11px]">Team</span>
                         </div>
                         {(team.tagline || meta.tagline) && (
                             <p className="mt-1 text-sm text-slate-300 leading-relaxed line-clamp-2">
@@ -139,21 +141,24 @@ const TeamCard = ({ team }) => {
                     </div>
                 </div>
 
-                <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/25">
+                <div
+                    className="mt-5 overflow-hidden rounded-2xl border"
+                    style={{ borderColor: 'var(--ui-border)', background: 'var(--ui-kpi-bg)' }}
+                >
                     <div className="relative h-12">
                         <div className="absolute inset-0" aria-hidden="true">
                             <div
                                 className="absolute inset-0 opacity-70"
                                 style={{ background: `linear-gradient(135deg, ${secondary}2A, ${primary}14)` }}
                             />
-                            <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
-                            <div className="absolute left-6 top-0 bottom-0 w-px bg-white/10" />
-                            <div className="absolute right-6 top-0 bottom-0 w-px bg-white/10" />
+                            <div className="absolute inset-x-0 top-1/2 h-px" style={{ background: 'var(--ui-border)' }} />
+                            <div className="absolute left-6 top-0 bottom-0 w-px" style={{ background: 'var(--ui-border)' }} />
+                            <div className="absolute right-6 top-0 bottom-0 w-px" style={{ background: 'var(--ui-border)' }} />
                         </div>
                         <div className="relative h-full p-3">
                             <div className="flex items-center justify-between">
                                 <span className="text-xs font-semibold tracking-wide text-slate-300">Franchise card</span>
-                                <span className="ui-badge bg-white/5">Open</span>
+                                <span className="ui-badge">Open</span>
                             </div>
                         </div>
                     </div>
@@ -163,7 +168,7 @@ const TeamCard = ({ team }) => {
                 <div className="mt-3 flex items-center justify-between">
                     <span className="text-sm font-semibold text-slate-100 group-hover:text-white">Open team page</span>
                     <span
-                        className="ui-chip bg-white/10"
+                        className="ui-chip"
                         style={{ backgroundColor: `${primary}22` }}
                     >
                         View

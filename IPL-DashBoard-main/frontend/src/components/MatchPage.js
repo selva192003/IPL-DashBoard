@@ -69,8 +69,8 @@ const MatchPage = () => {
         <div className="MatchPage">
             <section className="ui-glass rounded-3xl p-6 sm:p-8 relative overflow-hidden">
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
-                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                    <div className="absolute inset-0 ui-scrim" />
+                    <div className="absolute left-0 top-0 ui-hairline" />
                 </div>
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

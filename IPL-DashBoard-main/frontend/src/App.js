@@ -38,11 +38,16 @@ function App() {
           </Routes>
         </main>
 
-        <footer className="border-t" style={{ borderColor: 'var(--ui-border)' }}>
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-slate-400">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <span>IPL Dashboard</span>
-              <span>Stats and match insights</span>
+        <footer className="ui-chrome border-t" style={{ borderColor: 'var(--ui-border)' }}>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm">
+            <div className="flex flex-col items-center justify-center gap-1 text-center">
+              <div className="text-slate-200">© {new Date().getFullYear()} Selva J Project. All rights reserved.</div>
+              <div className="text-slate-400">
+                For any queries and suggestions, contact:{' '}
+                <a href="mailto:selvaj192003@gamil.com" className="underline underline-offset-4 text-slate-200">
+                  selvaj192003@gamil.com
+                </a>
+              </div>
             </div>
           </div>
         </footer>

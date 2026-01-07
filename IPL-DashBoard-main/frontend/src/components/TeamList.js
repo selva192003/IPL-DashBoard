@@ -126,9 +126,9 @@ const TeamList = () => {
     return (
         <div className="TeamList">
             <Reveal className="mb-7">
-                <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <section className="ui-glass relative overflow-hidden rounded-3xl">
                     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/0 via-slate-950/20 to-slate-950/60" />
+                        <div className="absolute inset-0 ui-scrim" />
                         <div className="absolute -top-32 left-1/2 h-[360px] w-[760px] -translate-x-1/2 rounded-full bg-indigo-600/12 blur-3xl" />
                         <div className="absolute -bottom-48 right-[-140px] h-[420px] w-[420px] rounded-full bg-cyan-500/12 blur-3xl" />
                     </div>
@@ -152,28 +152,28 @@ const TeamList = () => {
                 </section>
             </Reveal>
 
-            <div className="mt-8 ui-glass relative overflow-hidden rounded-3xl border border-white/10 px-6 py-12 shadow-xl">
+            <div className="mt-8 ui-glass relative overflow-hidden rounded-3xl px-6 py-12 shadow-xl">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(99,102,241,0.35),transparent_35%),radial-gradient(circle_at_85%_10%,rgba(14,165,233,0.3),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(45,212,191,0.25),transparent_35%)]" aria-hidden="true" />
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/30 to-white/0" />
+                    <div className="absolute left-0 top-0 ui-hairline" />
                     <div className="absolute right-0 top-10 h-px w-1/2 bg-gradient-to-l from-cyan-300/60 via-transparent to-transparent" />
                 </div>
 
                 <div className="relative flex flex-col gap-6">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                            <p className="text-xs uppercase tracking-[0.35em] text-cyan-100/80">Teams</p>
+                            <p className="text-xs uppercase tracking-[0.35em] text-slate-300">Teams</p>
                             <h1 className="text-3xl font-semibold text-white">Franchises & Legacies</h1>
-                            <p className="mt-2 max-w-2xl text-sm text-slate-200/80">
+                            <p className="mt-2 max-w-2xl text-sm text-slate-200">
                                 Explore every IPL franchise, their history, captains, and win records. Each card gives you a quick pulse of performance and identity.
                             </p>
                         </div>
-                        <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-cyan-100/80">
+                        <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-slate-300">
                             <span className="chip chip-soft">Season 2024</span>
                             <span className="chip chip-soft">Live Tracker</span>
                         </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-slate-200/80">
+                    <div className="flex flex-wrap items-center gap-3 text-sm text-slate-200">
                         <span className="chip chip-ghost">Total Teams: {safeTeams.length}</span>
                         <span className="chip chip-ghost">Historic Champions Included</span>
                         <span className="chip chip-ghost">Click a card to dive in</span>

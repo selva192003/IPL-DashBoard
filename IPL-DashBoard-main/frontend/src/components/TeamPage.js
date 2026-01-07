@@ -98,14 +98,16 @@ export const TeamPage = () => {
                     style={{ background: `linear-gradient(90deg, ${primary}, ${secondary})` }}
                     aria-hidden="true"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/40" aria-hidden="true" />
-                <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" aria-hidden="true" />
+                <div className="absolute inset-0 ui-scrim" aria-hidden="true" />
+                <div className="absolute left-0 top-0 ui-hairline" aria-hidden="true" />
 
                 <div className="relative px-6 py-6 sm:px-8">
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-4 min-w-0">
-                            <div className="relative h-16 w-16 rounded-3xl bg-slate-950/45 ring-1 ring-white/10 overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/0 to-white/20" aria-hidden="true" />
+                            <div
+                                className="relative h-16 w-16 rounded-3xl border overflow-hidden"
+                                style={{ background: 'var(--ui-surface-muted)', borderColor: 'var(--ui-border)' }}
+                            >
                                 <img
                                     src={logo}
                                     alt={`${team.teamName} logo`}
@@ -151,8 +153,8 @@ export const TeamPage = () => {
             {/* NEW: Pie Chart Section */}
             <div className="my-8 ui-glass p-5 relative overflow-hidden rounded-3xl">
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
-                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                    <div className="absolute inset-0 ui-scrim" />
+                    <div className="absolute left-0 top-0 ui-hairline" />
                 </div>
                 <div className="flex items-center justify-between gap-3">
                     <h2 className="text-lg sm:text-xl font-semibold text-white">Win/Loss Distribution</h2>
