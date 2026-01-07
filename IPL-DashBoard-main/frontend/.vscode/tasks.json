@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "frontend:test",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"test",
+				"--",
+				"--watchAll=false"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		}
+	]
+}

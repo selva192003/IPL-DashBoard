@@ -19,8 +19,11 @@ describe("TeamCard Component", () => {
     );
 
     expect(getByText(/Chennai Super Kings/i)).toBeInTheDocument();
-    expect(getByText(/Matches: 238/)).toBeInTheDocument();
-    expect(getByText(/Wins: 138/)).toBeInTheDocument();
+    // New UI splits labels and values into separate elements.
+    expect(getByText(/^Matches$/i)).toBeInTheDocument();
+    expect(getByText('238')).toBeInTheDocument();
+    expect(getByText(/^Wins$/i)).toBeInTheDocument();
+    expect(getByText('138')).toBeInTheDocument();
   });
 
   test("navigates to correct URL", () => {
@@ -31,6 +34,6 @@ describe("TeamCard Component", () => {
     );
 
     const link = getByRole("link");
-    expect(link).toHaveAttribute("href", "/team/Chennai Super Kings");
+    expect(link).toHaveAttribute("href", "/teams/Chennai Super Kings");
   });
 });

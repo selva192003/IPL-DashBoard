@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MatchCard from './MatchCard';
 import Loader from './Loader';
@@ -68,7 +68,7 @@ export const TeamPage = () => {
 
 
     if (!team || !team.teamName) {
-        return <Loader />;
+        return <Loader label="Loading team" />;
     }
 
     const totalLosses = team.totalMatches - team.totalWins;
@@ -91,24 +91,73 @@ export const TeamPage = () => {
     const COLORS = [primary, secondary];
 
     return (
-        <div className="TeamPage p-4">
-            <div className="rounded-lg p-6 mb-6 text-white" style={{background: `linear-gradient(90deg, ${primary}, ${secondary})`, position: 'relative', overflow: 'hidden', paddingLeft: 160}}>
-                <div style={{position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', opacity: 0.98}}>
-                    <img src={logo} alt={`${team.teamName} logo`} style={{width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.35))'}} />
+        <div className="TeamPage">
+            <section className="relative overflow-hidden ui-glass rounded-3xl">
+                <div
+                    className="absolute inset-x-0 top-0 h-28 opacity-95"
+                    style={{ background: `linear-gradient(90deg, ${primary}, ${secondary})` }}
+                    aria-hidden="true"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/40" aria-hidden="true" />
+                <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" aria-hidden="true" />
+
+                <div className="relative px-6 py-6 sm:px-8">
+                    <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex items-center gap-4 min-w-0">
+                            <div className="relative h-16 w-16 rounded-3xl bg-slate-950/45 ring-1 ring-white/10 overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/0 to-white/20" aria-hidden="true" />
+                                <img
+                                    src={logo}
+                                    alt={`${team.teamName} logo`}
+                                    className="h-14 w-14 object-contain"
+                                    style={{ filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.35))' }}
+                                />
+                            </div>
+                            <div className="min-w-0">
+                                <div className="ui-chip mb-1">Franchise</div>
+                                <h1 className="ui-title truncate">{team.teamName}</h1>
+                                {(team.tagline || meta.tagline) && (
+                                    <p className="mt-1 text-sm text-slate-300">{team.tagline || meta.tagline}</p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div className="ui-stat-pill">
+                                <div className="value">{team.totalMatches}</div>
+                                <div className="label">Matches</div>
+                                <div className="mt-1 text-[11px] text-slate-300">Played</div>
+                            </div>
+                            <div className="ui-stat-pill">
+                                <div className="value">{team.totalWins}</div>
+                                <div className="label">Wins</div>
+                                <div className="mt-1 text-[11px] text-slate-300">Franchise tally</div>
+                            </div>
+                            <div className="ui-stat-pill">
+                                <div className="value">{totalLosses}</div>
+                                <div className="label">Losses</div>
+                                <div className="mt-1 text-[11px] text-slate-300">Recorded</div>
+                            </div>
+                            <div className="ui-stat-pill">
+                                <div className="value">{winLossRatio}%</div>
+                                <div className="label">Win %</div>
+                                <div className="mt-1 text-[11px] text-slate-300">Across seasons</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h1 className="text-3xl font-bold mb-2">{team.teamName}</h1>
-                {(team.tagline || meta.tagline) && <p className="italic text-lg">{team.tagline || meta.tagline}</p>}
-                <div className="mt-4 flex gap-6">
-                    <p className="text-xl">Total Matches: {team.totalMatches}</p>
-                    <p className="text-xl">Total Wins: {team.totalWins}</p>
-                    <p className="text-xl">Total Losses: {totalLosses}</p>
-                    <p className="text-xl">Win %: {winLossRatio}%</p>
-                </div>
-            </div>
+            </section>
 
             {/* NEW: Pie Chart Section */}
-            <div className="my-8 p-4 bg-white rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4 text-center">Win/Loss Distribution</h2>
+            <div className="my-8 ui-glass p-5 relative overflow-hidden rounded-3xl">
+                <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
+                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                    <h2 className="text-lg sm:text-xl font-semibold text-white">Win/Loss Distribution</h2>
+                    <div className="text-xs text-slate-400">{team.totalMatches} matches</div>
+                </div>
                 {team.totalMatches > 0 ? (
                     <ResponsiveContainer width="100%" height={300}>
                         <PieChart>
@@ -133,31 +182,37 @@ export const TeamPage = () => {
                         </PieChart>
                     </ResponsiveContainer>
                 ) : (
-                    <p className="text-center text-gray-600">No matches played yet to display chart.</p>
+                    <p className="mt-4 text-center text-sm text-slate-400">No matches played yet to display chart.</p>
                 )}
             </div>
             {/* END NEW: Pie Chart Section */}
 
-
-            <div className="my-4">
-                <label htmlFor="season-select" className="block text-lg font-medium text-gray-700">Select Season:</label>
-                <select
-                    id="season-select"
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                    value={selectedSeason}
-                    onChange={(e) => setSelectedSeason(e.target.value === 'All Seasons' ? '' : e.target.value)}
-                >
-                    {seasonOptions.map(season => (
-                        <option key={season} value={season}>{season}</option>
-                    ))}
-                </select>
+            <div className="my-6 ui-glass p-5">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <div className="text-sm font-semibold text-white">Season</div>
+                        <div className="text-sm text-slate-400">Filter matches by season</div>
+                    </div>
+                    <select
+                        id="season-select"
+                        className="ui-input sm:w-72"
+                        value={selectedSeason || 'All Seasons'}
+                        onChange={(e) => setSelectedSeason(e.target.value === 'All Seasons' ? '' : e.target.value)}
+                    >
+                        {seasonOptions.map((season) => (
+                            <option key={season} value={season}>{season}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
 
-            <h2 className="text-2xl font-bold mt-8 mb-4">Matches:</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-white mt-8 mb-4">Matches</h2>
             {team.matches.length > 0 ? (
                 team.matches.map(match => <MatchCard key={match.id} match={match} teamName={team.teamName} />)
             ) : (
-                <p>No matches found for this selection.</p>
+                <div className="ui-glass p-6 text-center text-sm text-slate-300">
+                    No matches found for this selection.
+                </div>
             )}
         </div>
     );

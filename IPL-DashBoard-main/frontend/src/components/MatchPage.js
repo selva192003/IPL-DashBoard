@@ -39,15 +39,25 @@ const MatchPage = () => {
     }, [id]); // Re-fetch data when match ID changes in the URL
 
     if (loading) {
-        return <Loader />;
+        return <Loader label="Loading match" />;
     }
 
     if (error) {
-        return <div className="text-center text-red-500 p-4">{error}</div>;
+        return (
+            <div className="ui-panel p-6 text-center">
+                <div className="text-base font-semibold text-white">Unable to load match</div>
+                <div className="mt-2 text-sm text-red-300">{error}</div>
+            </div>
+        );
     }
 
     if (!match) {
-        return <div className="text-center p-4">Match not found.</div>;
+        return (
+            <div className="ui-panel p-6 text-center">
+                <div className="text-base font-semibold text-white">Match not found</div>
+                <div className="mt-2 text-sm text-slate-400">Check the match ID and try again.</div>
+            </div>
+        );
     }
 
     // Determine winner and loser for display
@@ -56,61 +66,96 @@ const MatchPage = () => {
     const loserTeam = isTeam1Winner ? match.team2 : match.team1;
 
     return (
-        <div className="MatchPage p-6 bg-gray-800 rounded-lg shadow-xl text-white max-w-3xl mx-auto my-8">
-            <h1 className="text-4xl font-extrabold text-center mb-6 text-indigo-400">
-                Match Details
-            </h1>
-
-            <div className="text-left space-y-4 text-lg">
-                <p><strong>Season:</strong> {match.season}</p>
-                <p><strong>Date:</strong> {match.date}</p>
-                <p><strong>Venue:</strong> {match.venue}, {match.city}</p>
-                <p><strong>Match Type:</strong> {match.matchType}</p>
-
-                <div className="border-t border-gray-700 pt-4 mt-4">
-                    <p className="text-2xl font-bold mb-2">
-                        <Link to={`/teams/${match.team1}`} className="text-yellow-300 hover:underline">{match.team1}</Link> vs <Link to={`/teams/${match.team2}`} className="text-yellow-300 hover:underline">{match.team2}</Link>
-                    </p>
-                    <p><strong>Toss Winner:</strong> {match.tossWinner} ({match.tossDecision})</p>
+        <div className="MatchPage">
+            <section className="ui-glass rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-slate-950/70" />
+                    <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0" />
                 </div>
 
-                <div className="border-t border-gray-700 pt-4 mt-4">
-                    <p className="text-2xl font-bold mb-2">
-                        Winner: <span className="text-green-400">{winnerTeam}</span>
-                    </p>
-                    <p>
-                        <span className="font-semibold">{winnerTeam}</span> won by {match.resultMargin} {match.result} against <span className="text-red-400">{loserTeam}</span>.
-                    </p>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <div className="ui-chip mb-2">Match sheet</div>
+                        <h1 className="ui-title">Match Details</h1>
+                        <p className="mt-1 text-sm text-slate-300">Season {match.season} • {match.date}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        <Link to={`/teams/${match.team1}`} className="ui-btn-secondary">
+                            {match.team1}
+                        </Link>
+                        <Link to={`/teams/${match.team2}`} className="ui-btn-secondary">
+                            {match.team2}
+                        </Link>
+                    </div>
                 </div>
 
-                {match.playerOfMatch && (
-                    <div className="border-t border-gray-700 pt-4 mt-4">
-                        <p><strong>Player of the Match:</strong> <Link to={`/players/${match.playerOfMatch}`} className="text-blue-400 hover:underline">{match.playerOfMatch}</Link></p>
+                <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="ui-stat-pill">
+                        <div className="value">{match.venue}</div>
+                        <div className="label">Venue</div>
+                        <div className="mt-1 text-[11px] text-slate-300">{match.city}</div>
+                    </div>
+
+                    <div className="ui-stat-pill">
+                        <div className="value">{match.matchType}</div>
+                        <div className="label">Match type</div>
+                        <div className="mt-1 text-[11px] text-slate-300">Toss: {match.tossWinner} ({match.tossDecision})</div>
+                    </div>
+                </div>
+
+                <div className="mt-6 ui-glass p-5">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <div className="text-sm font-semibold text-white">Result</div>
+                            <div className="mt-1 text-sm text-slate-300">
+                                <span className="font-semibold text-emerald-300">{winnerTeam}</span>
+                                <span className="text-slate-300"> won by </span>
+                                <span className="font-semibold text-white">{match.resultMargin} {match.result}</span>
+                                <span className="text-slate-300"> against </span>
+                                <span className="font-semibold text-rose-300">{loserTeam}</span>
+                                <span className="text-slate-300">.</span>
+                            </div>
+                        </div>
+
+                        {(match.superOver === 'Y' || (match.method && match.method !== 'NA')) && (
+                            <div className="flex flex-wrap gap-2">
+                                {match.superOver === 'Y' && (
+                                    <span className="ui-chip bg-orange-500/15 text-orange-100">Super Over</span>
+                                )}
+                                {match.method && match.method !== 'NA' && (
+                                    <span className="ui-chip bg-orange-500/15 text-orange-100">Method: {match.method}</span>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {(match.playerOfMatch || match.umpire1 || match.umpire2) && (
+                    <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+                        {match.playerOfMatch && (
+                            <div className="ui-stat-pill">
+                                <div className="value">{match.playerOfMatch}</div>
+                                <div className="label">Player of the Match</div>
+                                <div className="mt-1 text-[11px] text-slate-300">
+                                    <Link to={`/players/${match.playerOfMatch}`} className="font-semibold text-sky-300 hover:underline">
+                                        View profile
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+
+                        {(match.umpire1 || match.umpire2) && (
+                            <div className="ui-stat-pill">
+                                <div className="value">Officials</div>
+                                <div className="label">Umpires</div>
+                                <div className="mt-1 text-[11px] text-slate-300">
+                                    {match.umpire1} {match.umpire2 ? `& ${match.umpire2}` : ''}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
-
-                {(match.umpire1 || match.umpire2) && (
-                    <div className="border-t border-gray-700 pt-4 mt-4">
-                        <p><strong>Umpires:</strong> {match.umpire1} {match.umpire2 ? `& ${match.umpire2}` : ''}</p>
-                    </div>
-                )}
-
-                {match.superOver === 'Y' && (
-                    <p className="text-xl font-bold text-orange-400 mt-4">This match went to a Super Over!</p>
-                )}
-                {match.method && match.method !== 'NA' && (
-                    <p className="text-xl font-bold text-orange-400 mt-4">Method Applied: {match.method}</p>
-                )}
-            </div>
-
-            <div className="mt-8 text-center">
-                <Link to={`/teams/${match.team1}`} className="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors duration-200">
-                    View {match.team1} Team Page
-                </Link>
-                <Link to={`/teams/${match.team2}`} className="inline-block bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200 ml-4">
-                    View {match.team2} Team Page
-                </Link>
-            </div>
+            </section>
         </div>
     );
 };
