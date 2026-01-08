@@ -55,12 +55,7 @@ function TeamTile({ teamName, isWinner, score, overs }) {
         )}
 
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <div className="min-w-0 flex-1 truncate text-sm font-semibold text-white">{teamName}</div>
-            <span className={`ui-badge ${isWinner ? 'bg-emerald-500/25 text-emerald-100 ring-emerald-300/20' : ''}`}>
-              {isWinner ? 'Winner' : 'Opponent'}
-            </span>
-          </div>
+          <div className="text-sm font-semibold text-white leading-tight whitespace-normal break-words">{teamName}</div>
 
           {hasLine2 && (
             <div className="mt-1 text-xs text-slate-300">
